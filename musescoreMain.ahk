@@ -9,10 +9,6 @@ SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 #Include, %A_ScriptDir%\lib\infoShortcuts.ahk
 Menu, Tray, Icon, C:\Users\noahm\Desktop\AutoHotKey Scripts\musescore\PaletteIconv3.png
 
-^+0::
-transposeUpFourth()
-return
-
 
 ~^RButton::			; selects all similar elements in range selection
 selectAllSimilarElements()
