@@ -4,4 +4,4 @@ musescoreAHKExtensions is a function library that allows for easy interaction be
 
 ## Functions
 ### PruneStack
-The function `PruneStack(posX, posY)` is a function that takes two inputs, `posX` and `posY`
+The function `PruneStack(posX, posY)` is a function that takes two inputs, `posX` and `posY`, where the inputs are the X Y coordinates relative to the Prune Stack plugin of a the number on.
