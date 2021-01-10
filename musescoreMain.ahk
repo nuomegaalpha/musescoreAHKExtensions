@@ -4,10 +4,10 @@ SendMode Input  		; Recommended for new scripts due to its superior speed and re
 SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 #SingleInstance force		; Replaces script (Reloads).
 #Persistent			; to make it run indefinitely
-#IfWinActive ahk_exe C:\Program Files\MuseScore 3\bin\MuseScore3.exe	; Enables Hotkeys when MuseScore3 Window is Active
+#IfWinActive ahk_exe MuseScore3.exe	; Enables Hotkeys when MuseScore3 Window is Active
 #Include, %A_ScriptDir%\lib\musescore function list.ahk
 #Include, %A_ScriptDir%\lib\infoShortcuts.ahk
-Menu, Tray, Icon, C:\Users\noahm\Desktop\AutoHotKey Scripts\musescore\PaletteIconv3.png
+Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
 
 
 ~^RButton::			; selects all similar elements in range selection

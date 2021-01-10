@@ -1,4 +1,4 @@
-Menu, Tray, Icon, C:\Users\noahm\Desktop\AutoHotKey Scripts\musescore\PaletteIconv3.png
+Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
 
 
 InfoShortcuts:

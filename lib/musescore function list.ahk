@@ -4,7 +4,7 @@ SendMode Input  		; Recommended for new scripts due to its superior speed and re
 SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 #SingleInstance force		; Replaces script (Reloads).
 #Persistent			; to make it run indefinitely
-Menu, Tray, Icon, C:\Users\noahm\Desktop\AutoHotKey Scripts\musescore\PaletteIconv3.png
+Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
 
 
 PruneStack(posX, posY) {
@@ -20,9 +20,9 @@ PruneStack(posX, posY) {
 insertPaletteItem(PaletteCode, ItemName) {
 	ToolTip, %ItemName%
 	Send, ^{F9}
-	Sleep, 400
+	Sleep, 50
 	Send, ^a
-	Sleep, 400
+	Sleep, 50
 	Send, %PaletteCode%
 	Send, ^!p
 	SetTimer, RemoveToolTip, 1200
