@@ -1,3 +1,6 @@
+#SingleInstance, Force
+Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
+
 ; ============PRUNE STACK==================
 
 pruneStack_Click1_X := 272
@@ -20,6 +23,8 @@ pruneStack_ClickEnter_X := 1000
 pruneStack_ClickEnter_Y := 170
 pruneStack_ClickClose_X := 1000
 pruneStack_ClickClose_Y := 740
+
+PS_delay := 50
 
 
 

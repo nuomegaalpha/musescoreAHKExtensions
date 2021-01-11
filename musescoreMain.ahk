@@ -1,14 +1,14 @@
-#NoEnv  			; Recommended for performance and compatibility with future AutoHotkey releases.
+; #NoEnv  			; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  				; Enable warnings to assist with detecting common errors.
-SendMode Input  		; Recommended for new scripts due to its superior speed and reliability.
+; SendMode Input  		; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 #SingleInstance force		; Replaces script (Reloads).
 #Persistent			; to make it run indefinitely
 #IfWinActive ahk_exe MuseScore3.exe	; Enables Hotkeys when MuseScore3 Window is Active
 #Include, %A_ScriptDir%\lib\musescore function list.ahk
 #Include, %A_ScriptDir%\lib\infoShortcuts.ahk
-Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
 
+Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
 
 ~^RButton::			; selects all similar elements in range selection
 selectAllSimilarElements()
@@ -17,54 +17,55 @@ return
 ; ------------------------------Prune Stack--------------------------
 
 NumpadSub:: ;opens prune stack
+#Include, %A_ScriptDir%\lib\variables.ahk
 Send, ^+!u
-global PSInitX :=
-global PSInity :=
 MouseGetPos, PSInitX, PSInitY
 return
 
 #IfWinActive ahk_class Qt5QWindowOwnDCIcon
 
+
+
 Numpad1:: ;clicks 1
-PruneStack("272", "350")
+pruneStack(pruneStack_Click1_X, pruneStack_Click1_Y)
 return
 
 Numpad2:: ;clicks 2
-PruneStack("272", "260")
+pruneStack(pruneStack_Click2_X, pruneStack_Click2_Y)
 return
 
 Numpad3:: ;clicks 3
-PruneStack("272", "200")
+pruneStack(pruneStack_Click3_X, pruneStack_Click3_Y)
 return
 
 Numpad4:: ;clicks 4
-PruneStack("272", "150")
+pruneStack(pruneStack_Click4_X, pruneStack_Click4_Y)
 return
 
 Numpad5:: ;clicks 5
-PruneStack("410", "350")
+pruneStack(pruneStack_Click5_X, pruneStack_Click5_Y)
 return
 
 Numpad6:: ;clicks 6
-PruneStack("410", "260")
+pruneStack(pruneStack_Click6_X, pruneStack_Click6_Y)
 return
 
 Numpad7:: ;clicks 7
-PruneStack("410", "200")
+pruneStack(pruneStack_Click7_X, pruneStack_Click7_Y)
 return
 
 Numpad8:: ;clicks 8
-PruneStack("410", "150")
+pruneStack(pruneStack_Click8_X, pruneStack_Click8_Y)
 return
 
 NumpadEnter:: ;clicks enter
-PruneStack("1000", "170")
+pruneStack(pruneStack_ClickEnter_X, pruneStack_ClickEnter_Y)
 WinActivate, ahk_exe MuseScore3.exe
 MouseMove, PSInitX, PSInitY
 return
 
 Numpad0:: ;clicks close
-PruneStack("1000", "740")
+pruneStack(pruneStack_ClickClose_X, pruneStack_ClickClose_Y)
 WinActivate, ahk_exe MuseScore3.exe
 MouseMove, PSInitX, PSInitY
 return
@@ -147,14 +148,14 @@ Else If PaletteSymbol in ?,?a,?ag,?b,?bl,?bp,?br,?bs,?c,?d,?f,?fd,?fm,?g,?gn,?h,
 Goto, InfoShortcuts				; skip entering symbols and go to last part of script
 
 Else {                          ; this is the actual add to palette part
-    IniRead, sendToPalette, C:\Users\noahm\Desktop\AutoHotKey Scripts\musescore\lib\palettelist.ini, section1, %PaletteSymbol%
+    IniRead, sendToPalette, %A_ScriptDir%\lib\palettelist.ini, section1, %PaletteSymbol%
     If (sendToPalette = "ERROR") {          ; if can't find sendToPalette, check section2 where new info is stored
-        IniRead, sendToPalette, C:\Users\noahm\Desktop\AutoHotKey Scripts\musescore\lib\palettelist.ini, section2, %PaletteSymbol%
-        IniRead, paletteItemDefintion, C:\Users\noahm\Desktop\AutoHotKey Scripts\musescore\lib\paletteDefintions.ini, section2, %PaletteSymbol% ;   this section searches section2
+        IniRead, sendToPalette, %A_ScriptDir%\lib\palettelist.ini, section2, %PaletteSymbol%
+        IniRead, paletteItemDefintion, %A_ScriptDir%\lib\paletteDefintions.ini, section2, %PaletteSymbol% ;   this section searches section2
     }
     Else {                                  ; else (ie sendToPalette is not ERROR) searches for defintion in section1
-        IniRead, paletteItemDefintion, C:\Users\noahm\Desktop\AutoHotKey Scripts\musescore\lib\paletteDefintions.ini, section1, %PaletteSymbol%
+        IniRead, paletteItemDefintion, %A_ScriptDir%\lib\paletteDefintions.ini, section1, %PaletteSymbol%
     }
-    insertPaletteItem(sendToPalette, paletteItemDefintion)
+    insertPaletteItem(sendToPalette, paletteItemDefintion, 1200, 50)
     return
 }

@@ -7,25 +7,25 @@ SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
 
 
-PruneStack(posX, posY) {
+pruneStack(posX, posY, PS_delay) {
     MouseGetPos, PSStartX, PSStartY
-    Sleep, 50
+    Sleep, %PS_delay%
     Click, %posX%, %posY%
-    Sleep, 50
+    Sleep, %PS_delay%
     MouseMove, PSStartX, PSStartY
     return
 }
 
 
-insertPaletteItem(PaletteCode, ItemName) {
-	ToolTip, %ItemName%
+insertPaletteItem(paletteCode, itemName, toolTipTime, IPE_delay) {
+	ToolTip, %itemName%
 	Send, ^{F9}
-	Sleep, 50
+	Sleep, %IPE_delay%
 	Send, ^a
-	Sleep, 50
-	Send, %PaletteCode%
+	Sleep, %IPE_delay%
+	Send, %paletteCode%
 	Send, ^!p
-	SetTimer, RemoveToolTip, 1200
+	SetTimer, RemoveToolTip, %toolTipTime%
 	return
 }
 
