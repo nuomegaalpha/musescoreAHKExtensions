@@ -17,14 +17,12 @@ return
 ; ------------------------------Prune Stack--------------------------
 
 NumpadSub:: ;opens prune stack
-#Include, %A_ScriptDir%\lib\variables.ahk
 Send, ^+!u
 MouseGetPos, PSInitX, PSInitY
+#Include, %A_ScriptDir%\lib\variables.ahk
 return
 
 #IfWinActive ahk_class Qt5QWindowOwnDCIcon
-
-
 
 Numpad1:: ;clicks 1
 pruneStack(pruneStack_Click1_X, pruneStack_Click1_Y)

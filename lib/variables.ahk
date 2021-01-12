@@ -25,10 +25,6 @@ pruneStack_ClickEnter_Y := 170
 pruneStack_ClickClose_X := 1000
 pruneStack_ClickClose_Y := 740
 
-; Delay for the function pruneStack in milliseconds
-PS_delay := 50
-
-
 
 
 
