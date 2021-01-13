@@ -3,6 +3,7 @@
 musescoreAHKExtensions is a function library that allows for easy interaction between AutoHotKey and MuseScore.  It is primarily based on the post made [here](https://musescore.org/en/node/303798) by MuseScore forum user @MichLeon.
 
 License: MIT
+
 Copyright (c) 2021 Noah McAllister
 
 ## Functions
@@ -27,6 +28,8 @@ For example, I map the function to the numpad, with the NumpadSub opening the pl
 
 ### insertPaletteItem
 The function `insertPaletteItem(paletteCode, itemName, toolTipTime, IPE_delay)` is a function that takes four inputs, `paletteCode`, `itemName`, `IPE_toolTipTime`, and `IPE_delay`. `paletteCode` is the unique identifier for the palette item; it is also the value (right of the equals sign) in \lib\paletteList.ini. `itemName` is the name of the palette item that will be displayed as a tooltip; it is also the value of \lib\paletteDefinitions.ini. `IPE_toolTipTime` is the length of time the tooltip will be displayed for. `IPE_delay` is the amount of sleep time between commands to be executed.
+
+The purpose of this function is to add any palette item to the score. In my script (and @MichLeon's original script), on a shortcut, an input box is generated  
 
 ### nativeArticulation
 The function `nativeArticulation(keyName, articulationName)` is a function that takes two inputs, `keyName`, and `articulationName`
