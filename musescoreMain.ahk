@@ -146,9 +146,9 @@ Else If PaletteSymbol in ?,?a,?ag,?b,?bl,?bp,?br,?bs,?c,?d,?f,?fd,?fm,?g,?gn,?h,
 Goto, InfoShortcuts				; skip entering symbols and go to last part of script
 
 Else {                          ; this is the actual add to palette part
-    IniRead, sendToPalette, %A_ScriptDir%\lib\palettelist.ini, section1, %PaletteSymbol%
+    IniRead, sendToPalette, %A_ScriptDir%\lib\paletteList.ini, section1, %PaletteSymbol%
     If (sendToPalette = "ERROR") {          ; if can't find sendToPalette, check section2 where new info is stored
-        IniRead, sendToPalette, %A_ScriptDir%\lib\palettelist.ini, section2, %PaletteSymbol%
+        IniRead, sendToPalette, %A_ScriptDir%\lib\paletteList.ini, section2, %PaletteSymbol%
         IniRead, paletteItemDefintion, %A_ScriptDir%\lib\paletteDefintions.ini, section2, %PaletteSymbol% ;   this section searches section2
     }
     Else {                                  ; else (ie sendToPalette is not ERROR) searches for defintion in section1

@@ -29,9 +29,9 @@ insertPaletteItem(paletteCode, itemName, toolTipTime, IPE_delay) {
 	return
 }
 
-nativeArticulation(KeyName, ArticulationName) {
+nativeArticulation(keyName, articulationName) {
 	ToolTip, %ArticulationName%
-	Send, +%KeyName%
+	Send, +%keyName%
 	SetTimer, RemoveToolTip, 700
 	return
 }
@@ -181,21 +181,6 @@ generateAllParts() {
     Sleep, 100
     Send, {Tab 7}
     Sleep, 50
-    Send, {Enter}
-    return
-}
-
-transposeUpFourth() { ;transposes selection up perfect fourth
-    Send, r
-    Sleep, 100
-    Send, !t
-    Send, {Enter}
-    Sleep, 200
-    Send, {Tab 4}
-    Send, {Space}
-    Send, {Tab 2}
-    Sleep, 50
-    Send, {Down 11}
     Send, {Enter}
     return
 }
