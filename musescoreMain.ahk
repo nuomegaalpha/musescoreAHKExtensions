@@ -10,6 +10,7 @@ SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 
 Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
 
+
 ~^RButton::			; selects all similar elements in range selection
 selectAllSimilarElements()
 return
@@ -92,7 +93,7 @@ Else If (PaletteSymbol = "")
     Return
 
 Else If (PaletteSymbol = "parts") {
-    generateAllParts()
+    generateAllParts("^+!p")
     return
 }
 
@@ -117,21 +118,34 @@ Else If PaletteSymbol Contains rhy
     rhyPatternArray := StrSplit(PaletteSymbol, ".", " `t")
     global duration := rhyPatternArray[2]
     global numberOfRepeats := rhyPatternArray[3]
-    ; If (numberOfRepeats > 16) {
-    ;     MsgBox, 4132, Add Repeated Rhythm, Are you sure you want to add more than 16 notes?
-
-    ; }
-    repeatedNotes(duration, numberOfRepeats)
+    repeatedNotes(duration, numberOfRepeats, "^+i")
     return
 }
 
-Else If PaletteSymbol Contains style
+Else If PaletteSymbol Contains flip
+{
+    flipArray := StrSplit(PaletteSymbol, ".", " `t")
+    global varFlip := flipArray[2]
+    StringReplace, varFlip, varFlip, ", , All
+    flipVoices(varFlip)
+    return
+}
+
+Else If PaletteSymbol Contains slash
+{
+    slashArray := StrSplit(PaletteSymbol, ".", " `t")
+    global slashType := slashArray[2]
+    slashNotation(slashType)
+    return
+}
+
+Else If PaletteSymbol Contains sty
 {
     styleArray := StrSplit(PaletteSymbol, ".", " `t")
     styleFunctionType := styleArray[2]
     if (styleFunctionType = "new") {
-        global path := defineStyleFile()
-        loadStyle(path)
+        global path := defineStyleFile("C:\Users\noahm\Documents\MuseScore3\Styles")
+        MsgBox, % "The style file you selected is" . path
         return
     }
     else {
