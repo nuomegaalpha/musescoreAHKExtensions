@@ -6,6 +6,10 @@ License: MIT
 
 Copyright (c) 2021 Noah McAllister
 
+## Installation
+
+## Example Scripts
+
 ## Functions
 ### pruneStack
 The function `pruneStack(posX, posY)` is a function that takes two inputs, `posX` and `posY`, where the inputs are the X Y coordinates relative to the Prune Stack plugin of the checkbox that you want to click.  It does not return a value, but gets the current mouse position, moves the mouse to `posX, posY`, and them moves the mouse back to its original position.  The sleep time between clicks can be adjusted from within the function.
@@ -29,7 +33,9 @@ For example, I map the function to the numpad, with the NumpadSub opening the pl
 ### insertPaletteItem
 The function `insertPaletteItem(paletteCode, itemName, toolTipTime, IPE_delay)` is a function that takes four inputs, `paletteCode`, `itemName`, `IPE_toolTipTime`, and `IPE_delay`. `paletteCode` is the unique identifier for the palette item; it is also the value (right of the equals sign) in \lib\paletteList.ini. `itemName` is the name of the palette item that will be displayed as a tooltip; it is also the value of \lib\paletteDefinitions.ini. `IPE_toolTipTime` is the length of time the tooltip will be displayed for. `IPE_delay` is the amount of sleep time between commands to be executed.
 
-The purpose of this function is to add any palette item to the score. In my script (and @MichLeon's original script), on a shortcut, an input box is generated  
+The purpose of this function is to add any palette item to the score. In my script (and @MichLeon's original script), on a hotkey, an input box is generated where the user can type in something, and upon hitting enter, the script will search for what the user typed, send the correct palette code, then send the hotkey to "Add Current Palette Item to Score".
+
+This script works by using Ctrl+F9 to "Search Palette" and Ctrl+Alt+P to "Add Current Palette Item to Score" 
 
 ### nativeArticulation
 The function `nativeArticulation(keyName, articulationName)` is a function that takes two inputs, `keyName`, and `articulationName`
