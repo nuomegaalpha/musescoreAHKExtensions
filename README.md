@@ -35,7 +35,16 @@ The function `insertPaletteItem(paletteCode, itemName, toolTipTime, IPE_delay)` 
 
 The purpose of this function is to add any palette item to the score. In my script (and @MichLeon's original script), on a hotkey, an input box is generated where the user can type in something, and upon hitting enter, the script will search for what the user typed, send the correct palette code, then send the hotkey to "Add Current Palette Item to Score".
 
-This script works by using Ctrl+F9 to "Search Palette" and Ctrl+Alt+P to "Add Current Palette Item to Score" 
+This script works by using Ctrl+F9 to "Search Palette" and Ctrl+Alt+P to "Add Current Palette Item to Score".  These can be changed to whatever hotkey you have them defined as in MuseScore.
+
+##### Example
+I use this function in conjuction with an INI search of \lib\paletteDefinitions.ini and \lib\paletteList.ini to search for a user entered value.  This is much quicker and less intensive than having conditional statements for each palette item.
+
+``` autohotkey
+IniRead, sendToPalette, %A_ScriptDir%\lib\paletteList.ini, section1, %PaletteSymbol%
+IniRead, paletteItemDefintion, %A_ScriptDir%\lib\paletteDefintions.ini, section1,%PaletteSymbol%
+insertPaletteItem(sendToPalette, paletteItemDefintion, 1200, 50)
+```
 
 ### nativeArticulation
 The function `nativeArticulation(keyName, articulationName)` is a function that takes two inputs, `keyName`, and `articulationName`
