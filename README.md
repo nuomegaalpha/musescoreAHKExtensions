@@ -7,7 +7,7 @@ License: MIT
 Copyright (c) 2021 Noah McAllister
 
 ## Note (as of Jan 30 2021)
-I am currently building classes to incorporate the functions that MichLeon wrote in this post.  All of the new stuff is in the v2 folder; everything besides that should work. 
+I am currently building classes to incorporate the functions that MichLeon wrote in [this](https://musescore.org/en/node/316166) post.  All of the new stuff is in the v2 folder; everything besides that should work. 
 
 ## About
 At the heart of these functions is `insertPaletteItem()`, which allows you to insert any palette item (such as dynamics, lines, arpeggios, etc.) through a macro. It does this through the ingenious method created [here](https://musescore.org/en/node/303798) by @MichLeon by renaming every palette item with a unique identifier, and then seaching the palette for the unique identifier.
