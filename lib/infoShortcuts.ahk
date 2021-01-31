@@ -600,7 +600,7 @@ If (PaletteSymbol = "?z")
 {
 MsgBox, 4096, Beam Properties - shortcuts,
 (
-In InputBox enter FIRST "beam"
+In InputBox enter FIRST ","
 Start a beam					SB
 Middle beam					MB
 No beam						NB

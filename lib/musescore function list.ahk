@@ -204,7 +204,7 @@ loadStyle(styleFilePath) {
     return
 }
 
-generateAllParts(GAP_hotkey) {
+generateAllParts() {
     Send, !f
     Send, {down 12}
     Send, {Enter}

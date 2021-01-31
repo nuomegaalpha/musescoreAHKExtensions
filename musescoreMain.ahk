@@ -93,7 +93,7 @@ Else If (PaletteSymbol = "")
     Return
 
 Else If (PaletteSymbol = "parts") {
-    generateAllParts("^+!p")
+    generateAllParts()
     return
 }
 
