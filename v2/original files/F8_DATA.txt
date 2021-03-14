@@ -1,0 +1,137 @@
+﻿This DATA file - derived from the F8-.ahk file - contains the DIY items.
+It is a supporting file meant to keep track.
+
+Some hotkeys don't need extra data. So in this document they get just one line.
+For the hotkeys in need of extra data: for each hotkey alle DIY items are listed.
+This concerns images + their search surface, hotspots, colornumbers, offsets and dimensions.
+The actual valus have to be entered in Coordinates.ahk
+
+See also the Reference - F8 section of the pdf.
+Lines marked with (*change*?) often concern the position of tooltip and InputBoxes
+relative to the mouse position.
+♣==================================================================================================
+
+Images used in F8-macro group:
+Statusbar_Note_Pitch.png
+IM_01_Inspector_Inspector.png
+
+Shortcuts
+Alt + .			; augmentationdot 2
+Ctrl + Alt + P		; MSc user defined shortcut 'Apply current palette element' 
+Ctrl + F9		; MSc shortcut, Palette Search
+; ♣================================================================================================
+Legenda
+
+Modifier keys
+^	Control
+!	Alt
++	Shift
+#	Win
+
+Hotspots	IN_002_X/Y	means	IN_002_X	and	IN_002_Y
+Surfaces	CSA_X/Y1		CSA_X1			CSA_Y1		TLC	TopLeftCorner
+		CSA_X/Y2		CSA_X2			CSA_Y2		BRC	BottomRightCorner
+
+♣==================================================================================================
+
+For all StatusBar images is the Search Area
+SB_X/Y1
+SB_X/Y2
+
+Frequently used commands:
+InspectorCheck
+Image IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+
+PixelSearch - CanvasSearchArea
+CSA_X/Y1
+CSA_X/Y2
+ColorV1
+in some cases also:
+ColorV2
+ColorV3
+ColorV4
+
+♣==================================================================================================
+
+
+~[ & F8::		; tooltip (1) Note Input
+ToolT_F8_X, 0, 1		
+
+~] & F8::		; ExitApp
+
+~[ & 8::		; Note Input ♭♭×♮♭♯
+
+; ♣================================= NOTE PATTERNS ======================================
+
+; to use when you prefer a workflow of inputting the rhythm first and repitching afterwards
+; supported durations are from 64th to whole note (dotted 64th can be created but not a 128th)
+; durations with more than one dot are not supported
+; option L4: the maximum allowed length of the input is 4 characters
+; pressing Z or Escape breaks the loop
+; notepitch is b4 - middle line in staff with Treble clef - at start the actual octave depends on preceding note
+; 11 produces 64th, 22 32th, 33 16th, 44 eight, 55 quarter, 66 half, 77 whole note
+; 1. produces dotted 64th  2. dotted 32th,  3. dotted 16th, idem 4. 5. 6. and 7.
+; 1t produces two tied 64ths, 2t tied 32ths, idem 3t 4t 5t 6t and 7t for eight, quarter, half and whole note
+; in combinations containing a hyphen between two numbers the first note will be tied to the second
+; noteduration here is: 1 produces 64th, 2 32th, 3 16th, 4 eight, 5 quarter, 6 half, 7 whole note
+; NB: 1t has the same effect as 1-1, 2t as 2-2, 3t as 3-3 etc.
+; in combinations containing a semicolon the first note is dotted and will be tied to the second
+; there are no hotkeys for combinations where the SECOND tied note is dotted
+; in those cases: for the second note enter first the noteduration (1.2.3.4.5.6.or 7.) and then + to tie 
+; to delete a note press delete
+; to create a rest: input first the duration to create a note and then press End to create the rest
+; press Left to move the cursor backward, press Right to move the cursor forward
+; press R to repeat the previous command
+
+; TUPLETS - In F3 Navigation: Win + U to set number type and bracket type.
+; There you can press  Z to select the number for positioning or deleting the tuplet
+; The smallest notelength of total tuplet length is an eight note (n : 44), biggest a whole (n : 77)
+; eight note (n : 44)			3:44  5:44  6:44  7:44
+; dotted eight note (n : 4.)		2:4.  4:4.  5:4.
+; quarter note (n : 55)			3:55  5:55  6:55  7:55  9:55
+; dotted quarter note (n : 5.)		2:5.  4:5.  5:5.  7:5.  8:5.
+; half note (n : 66)			3:66  5:66  7:66  9:66
+; dotted half note (n : 6.)		4:6.  5:6.  7:6.  8:6.
+; whole (n : 77)			3:77  5:77  7:77  9:77.
+; workaround for tuplets crossing barline: join measure with the next, add barline, add 1 to next measurenumber
+
+~z & n::		; input note patterns
+Tooltip, Rhythmic Patterns.`nHelp = ?`nPress Z when ready., ToolT_F8_X, 40, 2	; position (*change*?)
+PixelSearch - CanvasSearchArea - ColorV1
+
+; ♣=================================== ADD ACCIDENTALS ===================================
+
+; https://w3c.github.io/smufl/gitbook/tables/gould-arrow-quartertone-accidentals-24-edo.html
+; Elaine Gould, Behind Bars, pp 94-98
+; checks first for notes, then for accidentals to make () or [] possible
+
+~z & x::	; add accidentals
+Image Statusbar_Note_Pitch.png
+Send ^!p	; MSc user defined shortcut 'Apply current palette element' (Ctrl + Alt + P)
+Send ^{F9}	; MSc shortcut, Palette Search (Ctrl + F9)
+
+; ♣========================== CREATE REST/RHYTHMIC PATTERNS ==============================
+
+z & r::			; create rest/rhythmic patterns, colored rests grouped
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1
+(*change*?) InputBox, R_Pattern, Create Rest Templates, , , W_IB, H_IB, IB_X, IB_Y, , , Enter Time Signature   ? for Help			;  (*change*?) InputBox positioned in Inspector area
+(*change*?) InputBox, R_Pattern, Create Rest Templates, , , W_IB, H_IB, ElementX+100, ElementY-120, , , Enter Time Signature   ? for Help	;  (*change*?) InputBox positioned near the mouse
+IN_012_X/Y		; I(012) color picker rectangular (black) - OVERLAP all elements
+RGB_X/Y			; Window Select Color HTML: #RGB rectangular
+
+; ♣====================== NOTE INPUT === NOTE BEFORE DURATION ============================
+
+; After pressing the Shift Key 5 times a window can appear: Turn on Sticky Keys?
+; In Settings -> Ease of Access -> Use Sticky Keys: uncheck 'Allow the shortcut key to start Sticky Keys.
+; Or change {RShift} in some other key - but *not* in {RAlt} on keyboards with AltGr.
+
+~z & p::		; pitch before duration input
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+ToolTip, Ties. Enter duration.`nPress CapsLock., ElementX, ElementY - 100, 8				; (*change*?)
+Tooltip, Note before duration.....Suspended.......Press CapsLock to activate., ToolT_F6_X, 22, 5	; (*change*?) Y = 22
+ToolTip, ChordMode..............To activate Normal Mode press Right Control., ToolT_F6_X, 44, 6		; (*change*?)
+ToolTip, Normal Mode................To activate Chord Mode press Left Control., ToolT_F6_X, 44, 7	; (*change*?)
+; ♣=======================================================================================

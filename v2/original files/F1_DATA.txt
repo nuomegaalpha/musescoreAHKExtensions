@@ -1,0 +1,339 @@
+﻿This DATA file - derived from the F1-.ahk file - contains the DIY items.
+It is a supporting file meant to keep track.
+
+Some hotkeys don't need extra data. So in this document they get just one line.
+For the hotkeys in need of extra data: for each hotkey alle DIY items are listed.
+This concerns images + their search surface, hotspots, colornumbers, offsets and dimensions.
+The actual valus have to be entered in Coordinates.ahk
+
+Often you'll find more info in the Reference - Intro and F1 section of the pdf.
+; ♣================================================================================================
+
+List of all images used in the F1-macro group
+
+IM_01_Inspector_Inspector.png
+IM_02_Inspector_Empty_Surface.png
+IM_03_Inspector_Nothing_Selected.png
+IM_13_Inspector_Element.png
+Remove_Selected_Range_Blue.png
+Swap_with_Clipboard_Blue.png
+Paste_Blue.png
+Delete_Blue.png
+CTS_Checked_ticked_sign.png
+Statusbar_Range_Selection.png
+Statusbar_Nothing_Selected.png
+Statusbar_Note_Pitch.png
+SLF_01_SelectionFilter_All_ticked.png
+; ♣================================================================================================
+Legenda
+
+Modifier keys
+^	Control
+!	Alt
++	Shift
+#	Win
+
+Hotspots	IN_002_X/Y	means	IN_002_X	and	IN_002_Y
+Surfaces	CSA_X/Y1	means	CSA_X1		and	CSA_Y1		TLC	TopLeftCorner
+		CSA_X/Y2	means	CSA_X2		and	CSA_Y2		BRC	BottomRightCorner
+
+Offsets are treated separately: one entry for each offset
+
+For all StatusBar images is the Search Area
+SB_X/Y1
+SB_X/Y2
+
+; ♣================================================================================================
+
+~[ & F1::		; tooltip Search and Select 
+ToolT_F1_X		; variable is X-coordinate of this tooltip
+
+~] & F1::		; ExitApp
+
+~[ & 1::		; general info group #1 + rightclick selection commands (contextual menu)
+
+~[ & c::		; info to selected voice element + colored range commands: set, reset, go to left/right, select range
+
+; ♣================================= SELECT ELEMENTS ==============================================
+
+~^RButton::			; Range > all similar
+~<+RButton::			; Score > all similar (Left Shift)
+~>+RButton::			; Same system > all similar (Right Shift)
+~!RButton::			; Range > similar > same voice
+~CapsLock & RButton::		; Staff > all similar
+#RButton::			; Staff > all similar > same voice
+~^MButton::			; Range > same subtype
+~<+MButton::			; Score > same subtype (Left Shift)
+~>+MButton::			; Same system > same subtype (Right Shift)
+~!MButton::			; Range > same subtype > same voice
+~CapsLock & MButton::		; Staff > same subtype
+#MButton::			; Staff > same subtype > same voice
+For all these selection commands:
+
+ImageSearch, , , IM_03_X1, IM_03_Y1, IM_03_X2, IM_03_Y2, *40 IM_03_Inspector_Nothing_Selected.png
+IM_03_X/Y1			; TopLeftCorner TLC
+IM_03_X/Y2			; BottomRightCorner BRC
+ImageSearch, , , StartX, StartY - RC_CM_Y1, StartX + RC_CM_X2, StartY + RC_CM_Y2, Remove_Selected_Range_Blue.png
+ImageSearch, , , StartX, StartY - RC_CM_Y1, StartX + RC_CM_X2, StartY + RC_CM_Y2, Swap_with_Clipboard_Blue.png
+ImageSearch, , , StartX, StartY - RC_CM_Y1, StartX + RC_CM_X2, StartY + RC_CM_Y2, Paste_Blue.png
+ImageSearch, , , StartX, StartY - RC_CM_Y1, StartX + RC_CM_X2, StartY + RC_CM_Y2, Delete_Blue.png
+---------------------------------------------------------------------------------------------------
+These coordinates are offsets relative to the mousposition which is StartX, StartY.
+Most of the time the contextual menu will probably be lower on the screen than the element.
+But when the selected element is low on the screen the contextual menu is higher than the element.
+Determine the offset RC_CM_Y1 in the situation that the contextual menu is higher than the element.
+Determine the offset RC_CM_Y2 in the situation that the contextual menu is lower than the element.
+NB: RC_CM_X1 is superfluous because it is the X of the mouseposition (the variable 'StartX').
+
+RC_CM_Y1			; these coordinates are offsets relative to the mousposition
+RC_CM_X2			; the mousposition is StartX, StartY
+RC_CM_Y2			; the same info is also in Coordinates.ahk
+---------------------------------------------------------------------------------------------------
+Window Select MINIMIZED!
+WS_01_X/Y			; (WS_01) Window Select Same subtype
+WS_02_X/Y			; (WS_02) Window Select Same staff
+WS_03_X/Y			; (WS_03) Window Select In selection
+WS_04_X/Y			; (WS_04) Window Select Same voice
+WS_05_X/Y			; (WS_05) Window Select Same system
+
+; ♣================================ SELECT NOTES ==================================================
+
+~] & d::		; Range > all notes with the same duration
+~] & p::		; Range > all notes with the same pitch
+~] & n::		; Range > all notes with the same note name
+~] & v::		; Range > all notes of the same voice
+~] & h::		; Range > only the noteheads or only the rests
+~[ & d::		; Staff > all notes with the same duration
+~[ & p::		; Staff > all notes with the same pitch
+~[ & n::		; Staff > all notes with the same note name
+~[ & v::		; Staff > all notes of the same voice
+These hotkeys use: Window Select Notes MINIMIZED
+WSN_02X/Y		; (WSN_02) Window Select Notes Same pitch
+WSN_05X/Y		; (WSN_05) Window Select Notes Same duration
+WSN_06X/Y		; (WSN_06) Window Select Notes Same note name
+WSN_07X/Y		; (WSN_07) Window Select Notes Same staff
+WSN_08X/Y		; (WSN_08) Window Select Notes In selection
+WSN_09X/Y		; (WSN_09) Window Select Notes Same voice
+
+; ♣================================== SEARCH VOICE COLORS =========================================
+; IMPORTANT: If you want to use the Masking (Text c.q. Measures) hotkeys your Canvas Color
+; must NOT be pure white, NOT 0xffffff  (NOT #ffffff). Change your Canvas color slightly.
+
+~!s::			; Search color all voices and click found element
+(PixelSearch		; CanvasSearchArea)
+CSA_X/Y1		; CanvasSearchArea
+CSA_X/Y2
+ColorV1
+ColorV2
+ColorV3
+ColorV4
+
+~!z::			; Search color voice 1 and click found element
+CSA_X/Y1		; CanvasSearchArea
+CSA_X/Y2
+ColorV1
+
+~!x::			; Search color voice 2 and click found element
+CSA_X/Y1		; CanvasSearchArea
+CSA_X/Y2
+ColorV2
+
+~!c::			; Search color voice 3 and click found element
+CSA_X/Y1		; CanvasSearchArea
+CSA_X/Y2
+ColorV3
+
+~!d::			; Search color voice 4 and click found element
+CSA_X/Y1		; CanvasSearchArea
+CSA_X/Y2
+ColorV4
+
+; ♣=============================== RESET COLOR and COLORPICKER ====================================
+
+; Reset color of single elements with a Style button somewhere in the Inspector: Y + S
+; Reset color of notes and other single elements without a Style button: Y + N
+; Reset color in range: Y + R
+
+~y & s::		; Reset Color by sending 'black' to ColorPicker
+ImageSearch Statusbar_Range_Selection.png
+SB_X/Y1			; StatusBar Search Area
+SB_X/Y2
+
+~y & n::		; Notes - reset color
+IN_013_X/Y		; I(013) Reset (012) color elements WITHOUT a Style button in Inspector
+
+~y & r::		; Range - reset color
+ImageSearch IM_13_Inspector_Element.png
+IM_13_X/Y1
+IM_13_X/Y2
+
+IN_013_X/Y		; I(013) Reset (012) color elements WITHOUT a Style button in Inspector
+IN_002_X/Y		; I(002) rectangular Set Color = Reset Color - ELEMENT GROUP
+
+~y & c::		; colorpicker - color one element
+ImageSearch IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+ImageSearch IM_03_Inspector_Nothing_Selected.png
+IM_03_X/Y1
+IM_03_X/Y2
+ImageSearch IM_02_Inspector_Empty_Surface.png
+IM_02_X/Y1		; for the surface of this dull picture
+IM_02_X/Y2		; see the F1-reference section in the pdf
+
+; ♣================================== APPLY COLORS ================================================
+
+
+~z & Pause::		; break loop score search all colors
+
+~z & c::		; apply colors
+(*change*?)  1  InputBox, ApplyColor, Apply Colors, , , W_IB, H_IB, IB_X, IB_Y, , , Help = 1 or 2 questionmarks			;  InputBox positioned in Inspector area
+(*change*?)  2  InputBox, ApplyColor, Apply Colors, , , W_IB, H_IB, StartX, StartY - 120, , , Help = 1 or 2 questionmarks		;  InputBox positioned near the mouse
+W_IB			; Width of InputBox in Inspector
+H_IB			; Height of InputBox in Inspector
+IB_X/Y			; TLC of InputBox in Inspector
+ImageSearch IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+ImageSearch Statusbar_Range_Selection.png
+ImageSearch Statusbar_Nothing_Selected.png
+ImageSearch Statusbar_Note_Pitch.png
+SB_X/Y1			; StatusBarSearchArea
+SB_X/Y2
+(PixelSearch		; CanvasSearchArea)
+CSA_X/Y1		; CanvasSearchArea
+CSA_X/Y2
+ColorV1
+ColorV2
+ColorV3
+ColorV4
+WS_01_X/Y		; (WS_01) Window Select same subtype
+WS_03_X/Y		; (WS_03) Window Select in selection
+SplashImage, MuseScore_logo.jpg, b zw-1 zh25, , , SearchResult
+IN_013_X/Y		; I(013) Reset (012) color elements WITHOUT a Style button in Inspector
+IN_002_X/Y		; I(002) rectangular Set Color = Reset Color - ELEMENT GROUP
+
+; ♣====================== COLORED RANGE ===== SELECTION PAIR 1/2/3/4 ==============================
+
+~y & f1::		; set left color (1) magenta 0xff00ff
+~l & [::		; idem
+~y & f2::		; set right color (1) lime 0x00ff00
+~l & ]::		; idem
+~y & f3::		; set left color (2) blue 0x0000ff
+~k & [::		; idem
+~y & f4::		; set right color (2) orange half tone 0xffaa00
+~k & ]::		; idem
+~y & f5::		; set left color (3) red 0xff0000
+~j & [::		; idem
+~y & f6::		; set right color (3) dark yellow 0xaaaa00
+~j & ]::		; idem
+~y & f7::		; set left color  (4) medium purple 0xaa55ff
+~h & [::		; idem
+~y & f8::		; set right color  (4) light salmon 0xffaa7f
+~h & ]::		; idem
+
+; ♣================ COLORED RANGE ===== MOUSE TO LEFT/RIGHT OF PAIR 1/2/3/4 =======================
+
+~y & 1::		; go to left color (1) magenta 0xff00ff
+~l & LButton::		; idem
+~y & 2::		; go to right color (1) lime 0x00ff00
+~l & RButton::		; idem
+~y & 3::		; go to left color (2) blue 0x0000ff
+~k & LButton::		; idem
+~y & 4::		; go to right color (2) orange half tone 0xffaa00
+~k & RButton::		; idem
+~y & 5::		; go to left color (3) red 0xff0000
+~j & LButton::		; idem
+~y & 6::		; go to right color (3) dark yellow 0xaaaa00
+~j & RButton::		; idem
+~y & 7::		; go to left color  (4) medium purple 0xaa55ff
+~h & LButton::		; idem
+~y & 8::		; go to right color  (4) light salmon 0xffaa7f
+~h & RButton::		; idem
+All these hotkeys use:
+(PixelSearch		; CanvasSearchArea)
+CSA_X/Y1		; CanvasSearchArea
+CSA_X/Y2
+
+
+; ♣===================== COLORED RANGE ===== SELECT/RESET RANGE 1/2/3/4 ===========================
+
+~y & 9::		; select colored range (1) from magenta to lime
+~l & MButton::		; idem
+~l & =::		; idem
+~l & -::		; reset colored range (1) from magenta to lime
+~y & 0::		; select colored range (2) from blue to orange half tone
+~k & MButton::		; idem
+~k & =::		; idem
+~k & -::		; reset colored range (2) from blue to orange half tone
+~y & -::		; select colored range (3) from red to dark yellow
+~j & MButton::		; idem
+~j & =::		; idem
+~j & -::		; reset colored range (3) from red to dark yellow
+~y & =::		; select colored range  (4) from medium purple to light salmon
+~h & MButton::		; idem
+~h & =::		; idem
+~h & -::		; reset colored range (4) from medium purple to pure green
+All these hotkeys use:
+(PixelSearch		; CanvasSearchArea)
+CSA_X/Y1		; CanvasSearchArea
+CSA_X/Y2
+IN_002_X/Y		; I(002) rectangular Set Color = Reset Color - ELEMENT GROUP
+
+; ♣===================================== SELECTION FILTER =========================================
+
+
+~z & f::		; selection filter
+(PixelSearch		; CanvasSearchArea)
+CSA_X/Y1		; CanvasSearchArea
+CSA_X/Y2
+ColorV1
+ColorV2
+ColorV3
+ColorV4
+ToolBarSel_X/Y		; toolbar selection spot
+ImageSearch CTS_Checked_ticked_sign.png
+SelTick_X/Y1
+SelTick_X/Y2
+ImageSearch CTS_Checked_ticked_sign.png
+PalTick_X/Y1
+PalTick_X/Y2
+ImageSearch Statusbar_Range_Selection.png
+SB_X/Y1			; StatusBarSearchArea
+SB_X/Y2
+PickColor:
+IN_012_X/Y		; I(012) color picker rectangular (black) - OVERLAP all elements
+RGB_X/Y			; Window Select Color HTML: #RGB rectangular
+SplashImage, MuseScore_logo_round.jpg, b fm8 wm1000 ctff0000, , Press Z`nwhen ready, Select, Arial
+SF_NN_X			; Selection Filter common X-coordinate
+SF_01_Y			; (SF_01) Selection Filter All
+SF_02_Y			; (SF_02) Selection Filter Voice 1
+SF_03_Y			; (SF_03) Selection Filter Voice 2
+SF_04_Y			; (SF_04) Selection Filter Voice 3
+SF_05_Y			; (SF_05) Selection Filter Voice 4
+SF_06_Y			; (SF_06) Selection Filter Dynamics
+SF_07_Y			; (SF_07) Selection Filter Hairpins
+SF_08_Y			; (SF_08) Selection Filter Fingering
+SF_09_Y			; (SF_09) Selection Filter Lyrics
+SF_10_Y			; (SF_10) Selection Filter Chord Symbols
+SF_11_Y			; (SF_11) Selection Filter Other Text
+SF_12_Y			; (SF_12) Selection Filter Articulations
+SF_13_Y			; (SF_13) Selection Filter Ornaments
+SF_14_Y			; (SF_14) Selection Filter Slurs
+SF_15_Y			; (SF_15) Selection Filter Figured Bass
+SF_16_Y			; (SF_16) Selection Filter Ottavas
+SF_17_Y			; (SF_17) Selection Filter Pedal Lines
+SF_18_Y			; (SF_18) Selection Filter Other Lines
+SF_19_Y			; (SF_19) Selection Filter Arpeggios
+SF_20_Y			; (SF_20) Selection Filter Glissandi
+SF_21_Y			; (SF_21) Selection Filter Fretboard Diagrams
+SF_22_Y			; (SF_22) Selection Filter Breath Marks
+SF_23_Y			; (SF_23) Selection Filter Tremolo
+SF_24_Y			; (SF_24) Selection Filter Grace Notes
+ImageSearch SLF_01_SelectionFilter_All_ticked.png
+SLF_01_X/Y1
+SLF_01_X/Y2
+IN_013_X/Y		; I(013) Reset (012) color elements WITHOUT a Style button in Inspector
+SF_OffSet_X		; distance between the tick √ before 'Grace Notes' to the middle of the word 'Grace Notes'
+			; clicking 'Grace Notes' will turn the surface blue to ensure that 'All' is NOT blue
+			; see picture in F1-reference section of pdf
