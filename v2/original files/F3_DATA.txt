@@ -1,0 +1,525 @@
+﻿This DATA file - derived from the F3-.ahk file - contains the DIY items.
+It is a supporting file meant to keep track.
+
+Some hotkeys don't need extra data. So in this document they get just one line.
+For the hotkeys in need of extra data: for each hotkey alle DIY items are listed.
+This concerns images + their search surface, hotspots, colornumbers, offsets and dimensions.
+The actual valus have to be entered in Coordinates.ahk
+
+You'll find more info in the Reference - F3 section of the pdf.
+
+Lines marked with (*change*?) often concern the position of tooltip and InputBoxes
+relative to the mouse position.
+But as you can read in the pdf Reference section F3 there are few hotkeys which
+need additional measurements. The resulting numbers replace the numbers in the
+corresponding lines in F3_Navigation.ahk
+♣==================================================================================================
+
+Images used in F3-macro group:
+
+IM_01_Inspector_Inspector.png
+IM_03_Inspector_Nothing_Selected.png
+IM_04_Inspector_Stem.png
+IM_05_Inspector_Flag.png
+IM_06_Inspector_Tuplet.png
+IM_07_Inspector_AugmentationDot1.png
+IM_08_Inspector_Select_Beam.png
+IM_14_Inspector_Segment.png
+IM_17_Inspector_Text.png
+IM_18_Inspector_Triangle_Closed.png
+IM_20_Inspector_Fingering.png
+IM_21_Inspector_Stem_section_open.png
+IM_22_Inspector_Fretboard_Diagram.png
+IM_25_Play_ticked.png
+IM_27_Clef_triangle_section_open.png
+IM_28_TimeSig_triangle_section_open.png
+IM_29_KeySig_triangle_section_open.png
+
+
+Statusbar_Acciaccatura.png
+Statusbar_Appoggiatura.png
+Statusbar_Articulation.png
+Statusbar_Barline.png
+Statusbar_Beam.png
+Statusbar_Dynamic.png
+Statusbar_Flag.png
+Statusbar_Grace_Note.png
+Statusbar_Hairpin.png
+Statusbar_Note_Pitch.png
+Statusbar_Nothing_Selected.png
+Statusbar_Range_Selection.png
+Statusbar_Rest.png
+Statusbar_Rest_Duration_Measure.png
+Statusbar_Slur.png
+Statusbar_Stem.png
+StatusBar_Symbol.png
+Statusbar_Text.png
+Statusbar_TieStart.png
+StatusBar_Tremolo.png
+
+; ♣================================================================================================
+Legenda
+
+Modifier keys
+^	Control
+!	Alt
++	Shift
+#	Win
+
+Hotspots	IN_002_X/Y	means	IN_002_X	and	IN_002_Y
+Surfaces	CSA_X/Y1		CSA_X1			CSA_Y1		TLC	TopLeftCorner
+		CSA_X/Y2		CSA_X2			CSA_Y2		BRC	BottomRightCorner
+♣==================================================================================================
+
+For all StatusBar images is the Search Area
+SB_X/Y1
+SB_X/Y2
+
+Frequently used commands:
+InspectorCheck
+Image IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+
+PixelSearch - CanvasSearchArea
+CSA_X/Y1
+CSA_X/Y2
+ColorV1
+in some cases also:
+ColorV2
+ColorV3
+ColorV4
+♣==================================================================================================
+
+~[ & F3::		; tooltip Navigation
+ToolT_F3_X		; variable is X-coordinate of this tooltip
+
+~] & F3::		; ExitApp
+
+~[ & 3::		; info Global Navigation
+					
+~[ & i::		; info Micro Navigation
+
+♣================================== NAVIGATION ====================================================
+
+~z & Tab::		; to the first empty measure after the last non-empty measure
+Image Statusbar_Rest_Duration_Measure.png
+PixelSearch - CanvasSearchArea - ColorV1
+
+~m & Tab::		; to the first next empty measure
+Image Statusbar_Rest_Duration_Measure.png
+PixelSearch - CanvasSearchArea - ColorV1
+
+~CapsLock & Tab::	; to next note in staff skipping whole measure rests
+Image Statusbar_Rest_Duration_Measure.png
+PixelSearch - CanvasSearchArea - ColorV1
+
+~\ & Home::		; to first measure of score and select first element
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Rest.png
+PixelSearch - CanvasSearchArea - ColorV1
+
+
+~\ & End::		; to last measure of score and select last element
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Rest.png
+PixelSearch - CanvasSearchArea - ColorV1
+
+♣================ CONTINUOUS VIEW - FROM HIGHEST TO LOWEST STAFF & VV =============================
+
+Info in pdf, Reference section F3 and in Help screens
+
+~\ & Down::		; from highest to lowest staff in continuous view
+FindOffset_H_to_L := 1	; 1 shows info screen, 0 skips this screen
+PixelSearch - CanvasSearchArea - ColorV1
+SelFrameDownOff_Y
+CanvasDown_Y
+
+
+~\ & Up::		; from lowest to highest staff in continuous view
+PixelSearch - CanvasSearchArea - ColorV1
+FindOffset_L_to_H := 1	; 1 shows info screen, 0 skips this screen
+SelFrameUpOff_Y
+CanvasUp_Y
+
+♣================ PAGE VIEW - FROM HIGHEST TO LOWEST STAFF & VV ===================================
+
+~\ & PgDn::		; to lowest staff in page view
+PixelSearch - CanvasSearchArea - ColorV1
+
+~\ & PgUp::		; to highest staff in page view
+PixelSearch - CanvasSearchArea - ColorV1
+
+♣======= PAGE WIDTH to next/previous page and SELECT FIRST NOTE/REST IN TOP STAFF =================
+
+Canvas Navigation Area: a surface at the topleft of the canvas.
+This surface covers the first bars of the highest system on the screen.
+This will be lasso selected by the navigation commands \ + Left  and \ + Right.
+The commands combine PageUp and PageDown with the actual selection of something
+So there is no loss of focus
+
+~\ & right::		; to next page in page width and select first note/rest in top staff
+CNA_X/Y1		; upper-left corner
+CNA_X/Y2		; shiftclick lower-right corner
+
+~\ & left::		; to previous page in page width and select first note/rest in top staff
+CNA_X/Y1		; upper-left corner
+CNA_X/Y2		; lower-right corner
+
+♣======================================= PLAY =====================================================
+
+#o::			; toggle play tickbox off/on - single note or range
+InspectorCheck		; subroutine at end of script
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Range_Selection.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+IN_007_X/Y		; I(007) Select Notes - ELEMENT GROUP
+IN_046_X/Y		; I(046) Note play tick box
+
+♣==================================== FIX TO LINE =================================================
+
+!#x::			; fix to line
+InspectorCheck
+Image Statusbar_Range_Selection.png
+Image Statusbar_Note_Pitch.png
+IN_007_X/Y		; I(007) Select Notes - ELEMENT GROUP
+IN_044_X/Y		; I(044) Note Fix to line tick box
+IN_045_X/Y		; I(045) Fix to linenumber rectangle
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+(*change*?) Tooltip, Fix to line.`nChange line number.`nPress Z when ready., Startx, StartY - 100, 3
+
+♣======================================= BEAM =====================================================
+
+#b::			; from note to beam
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image  IM_08_Inspector_Select_Beam.png
+IM_08_X/Y1		; upper-left corner
+IM_08_X/Y2		; lower-right corner
+IN_054_X/Y		; I(054) Select beam
+Image IM_21_Inspector_Stem_section_open.png
+IM_21_X/Y1		; upper-left corner
+IM_21_X/Y2		; lower-right corner
+IN_054_X/Y		; I(054) Select beam
+Image IM_21_Inspector_Stem_section_open.png
+IM_21_X/Y1		; upper-left corner
+IM_21_X/Y2		; lower-right corner
+Tooltip,    notice (*change*?)
+(
+For finetuning macrogroup #4 must be active. Attention:  etc
+)
+, A_Screenwidth / 2.4, 0, 2		; (*change*?) Screenwidth divided by 2.4
+
+
+♣======================== VELOCITY USER/OFFSET and RESET ==========================================
+
+!#v::			; break velocity loop
+
+#v::			; from  note to velocity - loop
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image Statusbar_Note_Pitch.png
+Image IM_25_Play_ticked.png
+IM_25_X/Y1		; upper-left corner
+IM_25_X/Y2		; lower-right corner
+IN_007_X/Y		; I(007) Select Notes - ELEMENT GROUP
+IN_048_X/Y		; I(048) Reset Velocity Type (to Offset)
+IN_047_X/Y		; I(047) Velocity Type ▼ rectangle
+IN_049_X/Y		; I(049) Velocity amount input field
+IN_050_X/Y		; I(050) Reset (049) Velocity amount
+Tooltip, Reset Velocity (*change*?)
+Tooltip, To next note (*change*?)
+
+♣======================== SYSTEMTEXT and STAFFTEXT ================================================
+
+Text properties: bold, italic, underlined, fontsize
+
+#t::			; from  note or rest to text
+InspectorCheck
+Image IM_03_Inspector_Nothing_Selected.png
+IM_03_X/Y1		; upper-left corner
+IM_03_X/Y2		; lower-right corner
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image IM_17_Inspector_Text.png
+IM_17_X/Y1		; upper-left corner
+IM_17_X/Y2		; lower-right corner
+IN_071_X/Y		; I(071) Horizontal Scrollbar Left
+IN_072_X/Y		; I(072) Horizontal Scrollbar Right
+IN_073_X/Y		; I(073) Text Font size
+IN_075_X/Y		; I(075) Text Bold
+IN_076_X/Y		; I(076) Text Italic
+IN_077_X/Y		; I(077) Text Underlined
+
+			; any type of text selected
+!#t::			; reset text properties B,I,U and size
+InspectorCheck
+Image IM_17_Inspector_Text.png
+IM_17_X/Y1		; upper-left corner
+IM_17_X/Y2		; lower-right corner
+IN_071_X/Y		; I(071) Horizontal Scrollbar Left
+IN_072_X/Y		; I(072) Horizontal Scrollbar Right
+IN_074_X/Y		; I(074) Reset Text size
+IN_078_X/Y		; I(078) Reset Text Properties - (but e.g. dynamics are underlined. repeat the hotkey to remove the underlining)
+
+
+♣==================================== TEXT FRAME ==================================================
+
+!#f::			; set text frame
+InspectorCheck
+Image IM_17_Inspector_Text.png
+IM_17_X/Y1		; upper-left corner
+IM_17_X/Y2
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+IN_079_X/Y		; I(079) Text Frame - TEXT (list)
+Tooltip, Choose Frame Type 	(*change*?) position tooltip
+
+
+♣============================== FRETBOARD DIAGRAM =================================================
+
+#q::			; from  note or rest to fretboard diagram
+InspectorCheck
+Image IM_22_Inspector_Fretboard_Diagram.png
+IM_22_X/Y1		; upper-left corner
+IM_22_X/Y2		; lower-right corner
+IN_098_X/Y		; I(098) Fretboard Diagram, spot under 'Multiple Dots'
+PixelSearch - CanvasSearchArea - CSA_X1, CSA_Y1 and CSA_X2, CSA_Y2 - ColorV1/2/3/4
+Tooltip, Press Z when ready (*change*?) position tooltip
+
+; ====================================== SLUR =====================================================
+
+#s::			; from  note or rest to slur - any voice Colorsearch works from 130%
+InspectorCheck
+Image Statusbar_Nothing_Selected.png
+Image Statusbar_Slur.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+
+♣====================================== BARLINE ===================================================
+
+Go with #n - WIN + N - to a note or rest. Next press ALT + WIN + B
+
+!#b::			; barline
+InspectorCheck		; subroutine at end of script
+Image Statusbar_Barline.png
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Rest.png
+Image Statusbar_Barline.png
+Image IM_14_Inspector_Segment.png
+IM_14_X/Y1
+IM_14_X/Y12
+Image IM_28_TimeSig_triangle_section_open.png
+IM_28_X/Y1		; upper-left corner
+IM_28_X/Y2		; lower-right corner
+Image IM_29_KeySig_triangle_section_open.png
+IM_29_X/Y1		; upper-left corner
+IM_29_			; lower-right corner
+Image IM_27_Clef_triangle_section_open.png
+IM_27_X/Y1		; upper-left corner
+IM_27_X/Y12
+If the macro has to change the direction of PixelSearch a small offset has to be subtracted.
+See the pdf for a picture of this situation.
+It concerns this line in F3_Navigation.ahk:
+Beam2X := BeamX - 6
+If the number '6' fails in selecting the beam,  experiment with changing this number.
+
+♣====================================== DYNAMIC ===================================================
+
+
+#d::			; from  note or rest to dynamic- position dynamic - any voice Colorsearch works from 130%
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image Statusbar_Dynamic.png
+
+♣======================================== TIE =====================================================
+
+#i::			; from  note or rest to tie
+Image Statusbar_TieStart.png
+
+♣======================================== HAIRPIN =================================================
+
+#h::			; from  note to hairpin - any voice Colorsearch works from 130%
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image Statusbar_Hairpin.png
+
+♣================================= FLAG - HOOK ====================================================
+
+#k::			; from  note to flag
+InspectorCheck
+Image IM_05_Inspector_Flag.png
+IM_05_X/Y1		; upper-left corner
+IM_05_X/Y2		; lower-right corner
+IN_053_X/Y		; I(053) Select flag
+IN_021_X/Y		; I(021) Y-offset - OVERLAP
+Tooltip, Press Z when ready, (*change*?)
+
+♣=================================== TREMOLO ======================================================
+
+#w::			; from  note to tremolo - any voice Colorsearch works from 130%
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image StatusBar_Tremolo.png
+
+♣============================= ARTICULATION and ORNAMENT ==========================================
+
+#a::			; from  note to articulation including ornaments
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image Statusbar_Articulation.png
+
+♣================================== GRACE NOTES ===================================================
+
+#g::			; to grace note - if more grace notes only the first will be recognized
+In Win OS: Hotkey Win + G for gaming. game bar settings: record game clips, screenshots etc -> Off
+
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Grace_Note.png
+Image Statusbar_Acciaccatura.png
+ImageSearch Statusbar_Appoggiatura.png
+
+♣================ MICRO NAVIGATION - FROM NOTE TO ACCIDENTAL ======================================
+
+See pdf.
+In this macro there are 4 lines marked by (*change*?)
+The numbers are for the test screen 1980 x 1020
+Try decreasing the numbers by 1 for lower resolution screens
+Try increasing the numbers by 1 for higher resolution screens
+
+#x::			; from note to accidental
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+ColorCanvas
+IN_089_X/Y		; I(089) Accidental Size tickbox - toggle
+IN_090_X/Y		; I(090) Accidental Bracket type rectangle
+
+♣================ MICRO NAVIGATION - FROM ELEMENT TO ITS STYLE PAGE ===============================
+
+#y::			; to style page of selected element
+WSTYHeight		; Window Style height: see Coordinates.ahk about how to determine
+WSTYWidth		; Window Style width: idem
+♣♣==================== MICRO NAVIGATION - FROM ELEMENT TO SYMBOL ==================================
+
+#m::			; from something near to symbol
+Image StatusBar_Symbol.png
+Image Statusbar_Note_Pitch.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Tooltip, Position symbol with arrowkeys (*change*?)
+
+♣================ MICRO NAVIGATION - FROM ELEMENT TO TUPLET =======================================
+
+#u::			; from note to tuplet - - set type: bracket or number
+InspectorCheck
+Image IM_06_Inspector_Tuplet.png
+IM_06_X/Y1		; upper-left corner
+IM_06_X/Y2		; lower-right corner
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+IN_055_X/Y		; I(055) Select tuplet
+IN_067_X/Y		; I(067) Tuplet number type
+IN_068_X/Y%		; I(068) Tuplet bracket type
+Tooltip, Tuplet Properties (*change*?
+
+♣================ MICRO NAVIGATION - FROM ELEMENT TO FINGERING ====================================
+
+#f::			; from note to fingering
+InspectorCheck		; subroutine at end of script
+Image IM_20_Inspector_Fingering.png
+IM_20_X/Y1		; upper-left corner
+IM_20_X/Y2		; lower-right corner
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+
+♣========================= MICRO NAVIGATION - FROM NOTE TO STEM ===================================
+
+			; from  note to stem  -> Z (for finetuning position,
+#e::			; to see properties and reset with Ctrl+R) master - stemlength change +/- 0.25 sp: NumpadEnter + up/down
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image Statusbar_Note_Pitch.png
+Image IM_18_Inspector_Triangle_Closed.png
+IM_18_X/Y1		; upper-left corner
+IM_18_X/Y2		; lower-right corner
+Image IM_04_Inspector_Stem.png
+IM_04_X/Y1		; upper-left corner
+IM_04_X/Y2		; lower-right corner
+Image IM_08_Inspector_Select_Beam.png
+IM_08_X/Y1		; upper-left corner
+IM_08_X/Y2		; lower-right corner
+
+IN_052_X/Y		; I(052) Select stem
+IN_058_X/Y		; I(058) Stem Length change
+Tooltip, Change stemlength with arrowkeys  (*change*?)
+
+♣============= MICRO NAVIGATION - FROM NOTE TO STEM - TIE CHORDS ==================================
+
+#c::			; chords tie toggle
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image Statusbar_Note_Pitch.png
+IN_052_X/Y		; I(052) Select stem
+
+♣============================ TOGGLE NOTES STEMLESS ===============================================
+
+!#s::			; toggle note(s) stemless - single note or range F3
+InspectorCheck
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Range_Selection.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+IN_007_X/Y		; I(007) Select Notes - ELEMENT GROUP
+IN_032_X/Y		; I(032) CHORD, tickbox stemless
+
+♣=============== MICRO NAVIGATION - FROM NOTE TO AUGMENTATION DOT =================================
+
+#.::			; from note in any voice to augmentation dot
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image IM_07_Inspector_AugmentationDot1.png
+IM_07_X/Y1		; upper-left corner
+IM_07_X/Y2		; lower-right corner
+
+Image IM_07_Inspector_AugmentationDot1.png
+IM_07_X/Y1		; upper-left corner
+IM_07_X/Y2		; lower-right corner
+IN_051_X?Y		; I(051) Select augm. dot 1
+IN_056_X/Y		; I(056) Note Dot Dot position
+
+♣======================== MICRO NAVIGATION - TO NOTE HEAD GROUP ===================================
+
+#j::			; navigation to note headgroup choose from list
+InspectorCheck		; subroutine at end of script
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Range_Selection.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+IN_007_X/Y		; I(007) Select Notes - ELEMENT GROUP
+IN_038_X/Y		; I(038) Note Headgroup - NOTE (list)
+Tooltip, Choose note head symbol with arrowkeys (*change*?)
+
+♣===================== MICRO NAVIGATION - MAKE CHORD/NOTE/REST SMALL ==============================
+
+!#c::			; make chord small	(also in range)
+!#n::			; make note small	(also in range)
+Image Statusbar_Range_Selection.png
+Image Statusbar_Note_Pitch.png
+Image StatusBar_Rest.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+IN_007_X/Y		; I(007) Select Notes - ELEMENT GROUP
+IN_009_X/Y		; I(009) Select Rests - ELEMENT GROUP
+IN_030_X/Y		; I(030) Chord tickbox Small - CHORD (toggle)
+IN_036_X/Y		; I(036) Note tickbox Small - NOTE (toggle)
+IN_070_X/Y		; I(070) Rest tickbox Small - REST (toggle)
+
+♣======================== MICRO NAVIGATION - FROM ELEMENT TO NOTE =================================
+See the WIN + N section in the pdf (Reference F3) how to change
+some small numbers marked by  (*change*?) in F3_Navigation.ahk
+
+#n::			; from element to note
+InspectorCheck
+Image IM_14_Inspector_Segment.png
+IM_14_X/Y1
+IM_14_X/Y2
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Beam.png
+Image Statusbar_Rest.png
+Image Statusbar_Stem.png
+Image Statusbar_Range_Selection.png
+Pixel Search - CanvasSearchArea - ColorV1/2/3/4
+
+♣==================================================================================================

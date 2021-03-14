@@ -1,0 +1,91 @@
+﻿This DATA file - derived from the F6-.ahk file - contains the DIY items.
+It is a supporting file meant to keep track.
+
+Some hotkeys don't need extra data. So in this document they get just one line.
+For the hotkeys in need of extra data: for each hotkey alle DIY items are listed.
+This concerns images + their search surface, hotspots, colornumbers, offsets and dimensions.
+The actual valus have to be entered in Coordinates.ahk
+
+You'll find more info in the Reference - F6 section of the pdf.
+
+Lines marked with (*change*?) often concern the position of tooltip and InputBoxes
+relative to the mouse position.
+♣==================================================================================================
+Images used in F6-macro group:
+
+Inspector_Inspector.png
+Statusbar_Note_Pitch.png
+Statusbar_Range_Selection.png
+Statusbar_Dynamic.png
+Statusbar_Hairpin.png
+
+; ♣================================================================================================
+Legenda
+
+Modifier keys
+^	Control
+!	Alt
++	Shift
+#	Win
+
+Hotspots	IN_002_X/Y	means	IN_002_X	and	IN_002_Y
+Surfaces	CSA_X/Y1		CSA_X1			CSA_Y1		TLC	TopLeftCorner
+		CSA_X/Y2		CSA_X2			CSA_Y2		BRC	BottomRightCorner
+
+♣==================================================================================================
+
+For all StatusBar images is the Search Area
+SB_X/Y1
+SB_X/Y2
+
+Frequently used commands:
+InspectorCheck
+Image IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+
+PixelSearch - CanvasSearchArea
+CSA_X/Y1
+CSA_X/Y2
+ColorV1
+in some cases also:
+ColorV2
+ColorV3
+ColorV4
+; ♣================================================================================================
+
+Shortcuts
+Apply current palette element	Control + Alt + P
+Palette Search			Ctrl + F9
+
+InputBoxes near the mouse: customize position - marked with (*change*?)
+
+; ♣================================================================================================
+
+~[ & F6::		; tooltip Advanced Dynamics
+ToolT_F6_X, 0, 1
+
+~] & F6::		; ExitApp
+~[ & 6::		; info screen Advanced Dynamics
+
+
+; ♣=========================== ENTER OR REPLACE DYNAMICS ===============================
+
+~z & d::		; advanced dynamics
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Range_Selection.png
+Image Statusbar_Dynamic.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+
+Several InputBoxes (*change*?)
+InspectorCheck
+IN_020_X/Y		; I(020) X-offset - OVERLAP
+IN_021_X/Y		; I(021) Y-offset - OVERLAP
+
+
+~z & e::		; set single dynamics consecutively (loop)
+Image Statusbar_Dynamic.png
+Image Statusbar_Hairpin.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4/
+
+; ♣=======================================================================================

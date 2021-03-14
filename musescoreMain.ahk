@@ -11,6 +11,10 @@ SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
 
 
+^+0::
+WinMenuSelectItem, ahk_exe MuseScore3.exe, , &File, Open...
+return
+
 ~^RButton::			; selects all similar elements in range selection
 selectAllSimilarElements()
 return

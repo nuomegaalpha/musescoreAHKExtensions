@@ -1,0 +1,590 @@
+﻿This DATA file - derived from the F4-.ahk file - contains the DIY items.
+It is a supporting file meant to keep track.
+
+Some hotkeys don't need extra data. So in this document they get just one line.
+For the hotkeys in need of extra data: for each hotkey alle DIY items are listed.
+This concerns images + their search surface, hotspots, colornumbers, offsets and dimensions.
+The actual valus have to be entered in Coordinates.ahk
+
+You'll find more info in the Reference - F4 section of the pdf.
+
+Lines marked with (*change*?) often concern the position of tooltip and InputBoxes
+relative to the mouse position.
+♣==================================================================================================
+Images used in F4-macro group:
+
+IM_01_Inspector_Inspector.png
+IM_03_Inspector_Nothing_Selected.png
+IM_08_Inspector_Select_Beam.png
+IM_09_Inspector_Beam_Custom_Position_ticked.png
+IM_14_Inspector_Segment.png
+IM_17_Inspector_Text.png
+IM_18_Inspector_Triangle_Closed.png
+IM_21_Inspector_Stem_section_open.png
+IM_25_Play_ticked.png
+IM_26_Inspector_Beam_Section_active.png
+Statusbar_List_Selection.png
+Statusbar_Range_Selection.png
+Statusbar_Note_Pitch.png
+CTS_Checked_ticked_sign.png
+
+; ♣================================================================================================
+Legenda
+
+Modifier keys
+^	Control
+!	Alt
++	Shift
+#	Win
+
+Hotspots	IN_002_X/Y	means	IN_002_X	and	IN_002_Y
+Surfaces	CSA_X/Y1		CSA_X1			CSA_Y1		TLC	TopLeftCorner
+		CSA_X/Y2		CSA_X2			CSA_Y2		BRC	BottomRightCorner
+
+♣==================================================================================================
+
+For all StatusBar images is the Search Area
+SB_X/Y1
+SB_X/Y2
+
+Frequently used commands:
+InspectorCheck
+Image IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+
+PixelSearch - CanvasSearchArea
+CSA_X/Y1
+CSA_X/Y2
+ColorV1
+in some cases also:
+ColorV2
+ColorV3
+ColorV4
+
+
+♣==================================================================================================
+~[ & F4::
+ToolT_F4_X, 0, 1		; tooltip Positioning
+
+~] & F4::			; ExitApp
+~[ & 4::			; Info Positioning (1) General
+~[ & l::			; Info Positioning (2) Stems and Align
+~[ & b::			; Info Positioning (3) Beams
+~[ & t::			; Info Positioning (4) Ties
+~[ & y::			; Info Positioning (5) Copy
+~[ & g::			; Info Positioning (6) Generic numeric commands
+
+♣======================================= X OFFSET - CHORD =========================================
+
+~CapsLock & Numpad4::	; X-offset CHORD 0.50 sp to the left
+~CapsLock & left::	; X-offset CHORD 0.10 sp to the left
+~CapsLock & up::	; X-offset CHORD 0.05 sp to the left
+~CapsLock & Numpad6::	; X-offset CHORD 0.50 sp to the right
+~CapsLock & right::	; X-offset CHORD 0.10 sp to the right
+~CapsLock & down::	; X-offset CHORD 0.05 sp to the right
+For all commands:
+InspectorCheck
+Image Statusbar_Note_Pitch.png
+IN_027_X/Y		; I(027) Chord X-offset
+
+♣============================= X/Y OFFSET - ELEMENTS ==============================================
+
+~LButton & x::		; fast access X-offset ELEMENTS
+InspectorCheck
+IN_020_X/Y		; I(020) X-offset - OVERLAP - ELEMENT
+
+~LButton & y::		; fast access Y-offset ELEMENTS
+InspectorCheck
+IN_021_X/Y		; I(021) Y-offset - OVERLAP - ELEMENT
+
+~CapsLock & WheelUp::
+IN_021_X/Y		; I(021) Y-offset - OVERLAP - ELEMENT
+
+~CapsLock & WheelDown::
+IN_021_X/Y		; I(021) Y-offset - OVERLAP - ELEMENT
+
+#WheelUp::
+IN_020_X/Y		; I(020) X-offset - OVERLAP - ELEMENT
+
+#Wheeldown::
+IN_020_X/Y		; I(020) X-offset - OVERLAP - ELEMENT
+
+♣============================= X/Y OFFSET ELEMENT =================================================
+
+~NumpadEnter & NumpadAdd::	; Y-OFFSET Element 0.25 sp up
+~NumpadEnter & NumpadSub::	; Y-OFFSET Element 0.25 sp down
+~NumpadEnter & Up::		; Y-OFFSET Element 0.05 sp up
+~NumpadEnter & Down::		; Y-OFFSET Element 0.05 sp down
+~NumpadAdd & Up::		; Y-OFFSET Element 0.03 sp up
+~NumpadAdd & Down::		; Y-OFFSET Element 0.03 sp down
+~NumpadSub & Up::		; Y-OFFSET Element 0.01 sp up
+~NumpadSub & Down::		; Y-OFFSET Element 0.01 sp down
+~NumpadEnter & Left::		; X-OFFSET Element 0.05 sp to the left
+~NumpadEnter & Right::		; X-OFFSET Element 0.05 sp to the right
+~NumpadAdd & Left::		; X-OFFSET Element 0.03 sp to the left
+~NumpadAdd & Right::		; X-OFFSET Element 0.03 sp to the right
+~NumpadSub & Left::		; X-OFFSET Element 0.01 sp to the left
+~NumpadSub & Right::		; X-OFFSET Element 0.01 sp to the right
+For all commands:
+InspectorCheck
+Image IM_21_Inspector_Stem_section_open.png
+IM_21_X/Y1
+IM_21_X/Y2
+IN_058_X/Y			; I(058) Stem Length change
+IN_021_X/Y			; I(021) Y-offset - OVERLAP - ELEMENT
+IN_020_X/y			; I(020) X-offset - OVERLAP - ELEMENT
+
+♣======================== LEADING SPACE FOR NOTES or RESTS=========================================
+
+#[::			; Set segment leading space
+#]::			; reset Segment leading space
+For both commands:
+InspectorCheck
+Image IM_14_Inspector_Segment.png
+IM_14_X/Y1
+IM_14_X/Y2
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+IN_025_X/Y		; I(025) Segment leading space rectangle
+IN_026_X/y		; I(026) Reset (025) Segment leading space
+
+; ♣================================ MASKING TEXT ==================================================
+
+; IMPORTANT: If you want to use the Masking (Text c.q. Measures) hotkeys your Canvas Color
+; must NOT be pure white, NOT 0xffffff  (NOT #ffffff). Change your Canvas color slightly.
+
+~, & .::			; create masking text
+InspectorCheck
+IN_079_X/Y			; I(079) Text Frame
+IN_081_X/Y			; I(081) Text Thickness rectangle
+IN_082_X/Y			; I(082) Text Margin rectangle
+IN_073_X/Y			; I(073) Text Font size
+IN_080_X/Y			; I(080) Text Border rectangle
+RGB_X/Y				; HTML: #RGB rectangle
+IN_023_X/Y			; I(023) Stacking order (Z) - OVERLAP
+
+~, & /::			; inspector: element, set stacking order
+InspectorCheck
+IN_023_X/Y			; I(023) Stacking order (Z) - OVERLAP
+Tooltip, Press Z when ready, IN_023_X - 100, IN_023_Y - 40, 10		; (*change*?)
+
+♣============== COLLISION AVOIDANCE ===== TIES and DOTTED NOTES ===================================
+
+These hotkeys don't require additional data
+
+~F5 & b::			; upstem bottom tie - line notes (b1)
+~F5 & v::			; upstem bottom - space notes (b2)
+~F5 & c::			; upstem bottom tie - chord with mirrored head (b3)
+~F5 & t::			; upstem topnote non mirrored (t1)
+~F5 & y::			; upstem mirrored topnote (t2)
+~F5 & s::			; upstem - spacenote - downtie
+~F5 & w::			; upstem - spacenote - uptie
+~F5 & l::			; upstem - linenote - down tie
+~F5 & o::			; upstem - linenote - up tie - curve up
+~F5 & n::			; upstem adjacent notes - mirrored secunde spacenote
+~F5 & m::			; upstem adjacent notes - mirrored secunde linenote
+~F5 & ]::			; upstem innernote (not mirrored) - downtie
+~F5 & [::			; upstem mirrored innernote downtie - default curvature
+~F5 & f::			; flatten upties - enlarge curve down-ties
+~F5 & -::			; tie rightside - 5 shorter
+~F5 & =::			; tie rightside - 5 longer
+~F5 & p::			; tie rightside - 2 longer
+~F5 & i::			; tie rightside - 2 shorter
+~F3 & b::			; downstem bottom tie - linenote
+~F3 & v::			; downstem bottom tie - spacenote
+~F3 & c::			; downstem bottom tie - mirrored note
+~F3 & t::			; downstem topnote (for line- and spacenotes)
+~F3 & y::			; downstem topnote (1/8)
+~F3 & s::			; downstem - spacenote - down tie
+~F3 & w::			; downstem- spacenote - uptie
+~F3 & l::			; downstem linenote down tie
+~F3 & o::			; downstem - linenote - up tie
+~F3 & n::			; downstem adjacent notes - mirrored secunde spacenote
+~F3 & m::			; downstem adjacent notes - mirrored secunde linenote
+~F3 & ]::			; downstem innernote downtie
+~F3 & [::			; downstem innernote uptie - default curvature
+~F3 & u::			; tie 3 higher
+~F5 & u::			; tie 3 higher
+~F3 & d::			; tie 3 lower
+~F5 & d::			; tie 3 lower
+~F3 & f::			; flatten downties - enlarge curve-up ties
+~F3 & -::			; tie leftside - 5 shorter
+~F3 & =::			; tie leftside - 5 longer
+~F3 & p::			; tie leftside - 2 longer
+~F3 & i::			; tie leftside - 2 shorter
+~F3 & x::			; flip tie
+~F5 & x::			; flip tie
+~F3 & r::			; reset tie
+~F5 & r::			; reset tie
+
+♣=============================== MOVE AUGMENTATION DOT ============================================
+
+~F3 & .::			; move dot in chord with seconds 1.2 sp left
+~F5 & .::			; move dot in chord with seconds 1.2 sp left
+~F3 & ,::			; reset dot
+~F5 & ,::			; reset dot
+For both commands:
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1
+IN_051_X/Y			; I(051) Select augm. dot 1
+IN_020_X/Y			; I(020) X-offset - OVERLAP - ELEMENT
+
+♣====================================== BEAMS =====================================================
+♣=========================== MICRO ADJUST ==== BEAM LEFT/RIGHT HANDLE =============================
+
+~F2 & 1::			; Beam Left Handle 0.01 sp higher
+~F2 & 2::			; Beam Left Handle 0.02 sp higher
+~F2 & 3::			; Beam Left Handle 0.03 sp higher
+~F2 & 4::			; Beam Left Handle 0.04 sp higher
+~F2 & 5::			; Beam Left Handle 0.05 sp higher
+~F2 & right::			; Beam Left Handle 0.05 sp higher
+~F2 & 6::			; Beam Left Handle 0.06 sp higher
+~F2 & 7::			; Beam Left Handle 0.07 sp higher
+~F2 & 8::			; Beam Left Handle 0.08 sp higher
+~F2 & 9::			; Beam Left Handle 0.09 sp higher
+~F2 & 0::			; Beam Left Handle 0.10 sp higher
+~F2 & -::			; Beam Grow Left & Right 1.16
+~F2 & =::			; Beam Grow Left & Right 1.25
+~F2 & l::			; Beam Grow Left
+~F2 & r::			; Beam Grow Right
+~F2 & up::			; Beam Left Handle 0.25 sp higher
+~F2 & NumPad1::			; Beam Left Handle 0.01 sp lower
+~F2 & NumPad2::			; Beam Left Handle 0.02 sp lower
+~F2 & NumPad3::			; Beam Left Handle 0.03 sp lower
+~F2 & NumPad4::			; Beam Left Handle 0.04 sp lower
+~F2 & NumPad5::			; Beam Left Handle 0.05 sp lower
+~F2 & left::			; Beam Left Handle 0.05 sp lower
+~F2 & NumPad6::			; Beam Left Handle 0.06 sp lower
+~F2 & NumPad7::			; Beam Left Handle 0.07 sp lower
+~F2 & NumPad8::			; Beam Left Handle 0.08 sp lower
+~F2 & NumPad9::			; Beam Left Handle 0.09 sp lower
+~F2 & NumPad0::			; Beam Left Handle 0.10 sp lower
+~F2 & down::			; Beam Left Handle 0.25 sp lower
+~F3 & 1::			; Beam Right Handle 0.01 sp higher
+~F3 & 2::			; Beam Right Handle 0.02 sp higher
+~F3 & 3::			; Beam Right Handle 0.03 sp higher
+~F3 & 4::			; Beam Right Handle 0.04 sp higher
+~F3 & 5::			; Beam Right Handle 0.05 sp higher
+~F3 & right::			; Beam Right Handle 0.05 sp higher
+~F3 & 6::			; Beam Right Handle 0.06 sp higher
+~F3 & 7::			; Beam Right Handle 0.04 sp higher
+~F3 & 8::			; Beam Right Handle 0.08 sp higher
+~F3 & 9::			; Beam Right Handle 0.09 sp higher
+~F3 & 0::			; Beam Right Handle 0.10 sp higher
+~F3 & up::			; Beam Right Handle 0.25 sp higher
+~F3 & NumPad1::			; Beam Right Handle 0.01 sp lower
+~F3 & NumPad2::			; Beam Right Handle 0.02 sp lower
+~F3 & NumPad3::			; Beam Right Handle 0.03 sp lower
+~F3 & NumPad4::			; Beam Right Handle 0.04 sp lower
+~F3 & NumPad5::			; Beam Right Handle 0.05 sp lower
+~F3 & left::			; Beam Right Handle 0.05 sp lower
+~F3 & NumPad6::			; Beam Right Handle 0.06 sp lower
+~F3 & NumPad7::			; Beam Right Handle 0.07 sp lower
+~F3 & NumPad8::			; Beam Right Handle 0.08 sp lower
+~F3 & NumPad9::			; Beam Right Handle 0.09 sp lower
+~F3 & NumPad0::			; Beam Right Handle 0.10 sp lower
+~F3 & down::			; Beam Right Handle 0.25 sp lower
+For all commands:
+InspectorCheck
+Image Statusbar_Note_Pitch.png
+IN_064_X/Y			; I(064) Beam Position X = left handle rectangle
+IN_065_X/Y			; I(065) Beam Position Y = right handle rectangle
+
+♣================================ MAKE BEAMS HORIZONTAL ===========================================
+
+~CapsLock & h::			; make single beam horizontal
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image IM_08_Inspector_Select_Beam.png
+IM_08_X/Y1
+IM_08_X/Y2
+Image CTS_Checked_ticked_sign.png
+Hor_X/Y1
+Hor_X/Y2
+Image IM_09_Inspector_Beam_Custom_Position_ticked.png
+IM_09_X/Y1
+IM_09_X/Y2
+IN_054_X/Y			; I(054) Select beam
+IN_060_X/Y			; I(060) Beam Force horizontal
+IN_061_X/Y			; I(061) Reset (060) Horizontal Beams - NOTE IF BEAM IS SELECTED
+IN_062_X/Y			; I(062) set Beam Custom position off - NOTE IF BEAM IS SELECTED
+
+~CapsLock & i::			; make beams of same voice in range horizontal
+InspectorCheck
+Image IM_09_Inspector_Beam_Custom_Position_ticked.png
+IM_09_X/Y1
+IM_09_X/Y2
+IN_060_X/Y			; I(060) Beam Force horizontal
+IN_063_X/Y			; I(063) Reset (062) Beam Custom position
+WS_03_X/Y			; (WS_03) In selection
+WS_04_X/Y			; (WS_04) Same voice - Window select
+
+♣============================= RESET BEAM - RESET BEAMS ===========================================
+
+~CapsLock & j::			; Reset single beam - any voice
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+IN_054_X/Y			; I(054) Select beam
+
+~CapsLock & k::			; reset beams in range - only of selected voice
+InspectorCheck
+WS_03_X/Y			; (WS_03) In selection
+WS_04_X/Y			; (WS_04) Same voice - Window Select
+
+♣========================== COPY PASTE BEAM CUSTOM POSITION =======================================
+
+~m & LButton::			; copy custom X/Y position is also
+~p & F9::			; copy beam X left handle and Y right handle
+~p & LButton::			; copy grow left and right is also
+~p & -::			; copy grow left and right
+~m & RButton::			; paste custom X/Y position is also
+~p & F10::			; paste beam X left handle en Y right handle
+~p & RButton::			; paste grow left and right is also
+~p & =::			; paste grow left and right
+For all commands:
+InspectorCheck
+Image Statusbar_Note_Pitch.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image IM_09_Inspector_Beam_Custom_Position_ticked.png
+IM_09_X/Y1
+IM_09_X/Y2
+IN_054_X/Y			; I(054) Select beam
+IN_062_X/Y			; I(062) Beam Custom position tick box
+IN_064_X/Y			; I(064) Beam Position X = left handle rectangle
+IN_065_X/Y			; I(065) Beam Position Y = right handle rectangle
+IN_102_X/Y			; I(102) Beam Grow Left
+IN_103_X/Y			; I(103) Beam Grow Right
+
+♣=================================== CHANGE STEMLENGTH ============================================
+
+~\ & l::			; stem selected - change stemlength - exit with Z
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+IN_058_X/Y			; I(058) Stem Length change
+
+NB: Stem search in MouseMove commands: see StemLength change in pdf F4-Reference section.
+More info in F4_Positioning.ahk also about the rare situation in which the hotkeys will not work.
+Searchword '\ & p::'
+~\ & 0::			; increase stemlength one note with 0.25 sp
+~\ & =::			; increase stemlength of one note with 0.5 sp
+~\ & 9::			; decrease stemlength one note with 0.25 sp
+~\ & -::			; decrease stemlength of one note with 0.5 sp
+\ & p::				; increase stems of notes same voice in range with 0.25 sp
+~\ & ]::			; increase stems of notes same voice in range with 0.50 sp
+~\ & o::			; decrease stems of notes same voice in range with 0.25 sp
+~\ & [::			; decrease stems of notes same voice in range with 0.50 sp
+For all commands:
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image Statusbar_Note_Pitch.png
+IN_052_X/Y			; I(052) Select stem
+IN_058_X/Y			; I(058) Stem Length change
+Tooltip, Change stemlength. NB:Zoomfactor < 200!`nSelect range and press Z when ready, StartX - 100, StartY - 80, 6	; (*change*?)
+MouseMove, StartX + 4, StartY - 15	; (#) offset determines zoom range - find with PixMousing (*change*?) Search area of the stem relative to the mouse position
+MouseMove, StartX - 7, StartY + 15	; (#) offset determines zoom range - find with PixMousing (*change*?)
+WS_04_X/Y			; (WS_04) Same voice - Window Select
+WS_03_X/Y			; (WS_03) In selection
+IN_058_X/Y			; I(058) Stem Length change
+
+♣============================== RESET STEMLENGTH ONE NOTE =========================================
+
+~\ & /::			; reset stemlength one note
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image Statusbar_Note_Pitch.png
+IN_052_X/Y			; I(052) Select stem
+IN_059_X/Y			; I(059) Reset (058) Length change stems
+
+
+♣======================================== ALIGN ===================================================
+
+~CapsLock & F10::		; horizontal alignment of similar elements
+InspectorCheck
+IN_021_X/Y			; I(021) Y-offset - OVERLAP - ELEMENT
+
+~CapsLock & F11::		; horizontal alignment of similar elements of the same subtype
+InspectorCheck
+WS_01_X/Y			; (WS_01) Same subtype - Window Select
+WS_03_X/Y			; (WS_03) In selection
+WS_11_X/Y			; (WS_11) OK
+IN_021_X/Y			; I(021) Y-offset - OVERLAP - ELEMENT
+
+♣============================= NAVIGATION to NUMERIC FIELDS =======================================
+
+~m & d::		; Minimum distance input field OVERLAP - ELEMENT
+~m & x::		; X-offset - OVERLAP - ELEMENT
+~m & y::		; Y-offset - OVERLAP - ELEMENT
+~m & z::		; Stacking order (Z) - OVERLAP - ELEMENT
+~m & l::		; Segment leading space rectangle - SEGMENT
+~m & c::		; Chord X-offset - CHORD
+~m & u::		; Chord Y-offset - CHORD
+~m & v::		; Velocity amount input field - NOTE + PLAY
+~m & b::		; Beam Position X = left handle rectangle
+~m & n::		; Beam Position Y = right handle rectangle
+~m & ,::		; Beam Grow Left
+~m & .::		; Beam Grow Right
+~m & [::		; Parallel Beams set beam distance 1.16
+~m & ]::		; Parallel Beams set beam distance 1.25	
+~m & /::		; Reset Parallel Beams (set beam distance 1.00)
+~m & t::		; Text Font size - TEXT
+For all commands:
+InspectorCheck
+Image IM_03_Inspector_Nothing_Selected.png
+IM_03_X/Y1
+IM_03_X/Y2
+Image Statusbar_List_Selection.png
+Image Statusbar_Range_Selection.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image IM_18_Inspector_Triangle_Closed.png
+IM_18_X/Y1
+IM_18_X/Y2
+IN_017_X/Y		; I(017) Minimum distance input field OVERLAP - ELEMENT
+IN_020_X/Y		; I(020) X-offset - OVERLAP - ELEMENT
+IN_021_X/Y		; I(021) Y-offset - OVERLAP - ELEMENT
+IN_023_X/y		; I(023) Stacking order (Z) - OVERLAP - ELEMENT
+Image IM_14_Inspector_Segment.png
+IM_14_X/Y1
+IM_14_X/Y2
+IN_025_X/Y		; I(025) Segment leading space rectangle - SEGMENT
+Image Statusbar_Note_Pitch.png
+Image IM_26_Inspector_Beam_Section_active.png
+IM_26_X/Y1
+IM_26_X/Y2
+IN_027_X/Y		; I(027) Chord X-offset - CHORD (to the right of X-key)
+IN_028_X/Y		; I(028) Chord Y-offset - CHORD (to the right of Y-key)
+Image IM_25_Play_ticked.png
+IM_25_X/Y1
+IM_25_X/Y2
+IN_049_X/Y		; I(049) Velocity amount input field - NOTE + PLAY
+Image IM_17_Inspector_Text.png
+IM_17_X/Y1
+IM_17_X/Y1
+IN_073_X/Y		; I(073) Text Font size - TEXT
+Image IM_08_Inspector_Select_Beam.png
+IM_08_X/Y1
+IM_08_X/Y2
+IN_054_X/Y		; I(054) Select beam
+Image IM_09_Inspector_Beam_Custom_Position_ticked.png
+IM_09_X/Y1
+IM_09_X/Y2
+IN_062_X/Y		; I(062) Beam Custom position tick box - NOTE IF BEAM IS SELECTED
+IN_064_X/Y		; I(064) Beam Position X = left handle rectangle
+IN_065_X/Y		; I(065) Beam Position Y = right handle rectangle
+IN_102_X/Y		; I(102) Beam Grow Left
+IN_103_X/Y		; I(103) Beam Grow Right
+Tooltip, Change value with arrow up/down.`nOr use the Numpad commands for small changes.`nNumpadAdd/Subtract + Number.`nPress Z when ready., ElementX-120, ElementY - 150, 16	; (*change*?)
+
+; ♣=========================== NUMERIC INPUT ADD and SUBTRACT ============================
+
+; NumLock must be on!
+; these are generic commands, working on numeric fields having two decimals
+; NB: there is no selection of numeric fields!
+; when the cursor is on the Canvas the macro exits with a warning
+; idem when there is nothing selected or the screen is not in the defined state
+; TIP: use the hotkeys in combination with memorypoints - F9 - for other numeric rectangles
+; e.g. the tuning or the aperture ('height') of a hairpin
+; the time stretch of an articulation or a fermate
+; or in text line details the placement of begin/continue/end text
+; often the step unit of the arrows is too big, necessitating typing the decimals
+; these commands take care of this
+
+~NumpadAdd & Numpad1::			; adds 0.01
+~NumpadAdd & Numpad2::			; adds 0.02
+~NumpadAdd & Numpad3::			; adds 0.03
+~NumpadAdd & Numpad4::			; adds 0.10
+~NumpadAdd & Numpad5::			; adds 0.20
+~NumpadAdd & Numpad6::			; adds 0.30
+~NumpadAdd & Numpad7::			; adds 1.00
+~NumpadAdd & Numpad8::			; adds 2.00
+~NumpadAdd & Numpad9::			; adds 3.00
+~NumpadAdd & Numpad0::			; adds 10.00
+For all commands:
+InspectorCheck
+Image IM_03_Inspector_Nothing_Selected.png
+IM_03_X/Y1
+IM_03_X/Y2
+Image Statusbar_Range_Selection.png
+
+~NumpadSub & Numpad1::			; subtracts 0.01
+~NumpadSub & Numpad2::			; subtracts 0.02
+~NumpadSub & Numpad3::			; subtracts 0.03
+~NumpadSub & Numpad4::			; subtracts 0.10
+~NumpadSub & Numpad5::			; subtracts 0.20
+~NumpadSub & Numpad6::			; subtracts 0.30
+~NumpadSub & Numpad7::			; subtracts 1.00
+~NumpadSub & Numpad8::			; subtracts 2.00
+~NumpadSub & Numpad9::			; subtracts 3.00
+~NumpadSub & Numpad0::			; subtracts 10.00
+For all commands
+InspectorCheck
+Image IM_03_Inspector_Nothing_Selected.png
+IM_03_X/Y1
+IM_03_X/Y2
+Image Statusbar_Range_Selection.png
+
+♣======================= COPY X and Y offsets for ELEMENTS ========================================
+
+~p & F11::		; copy X- and Y- Offsets of element
+~p & F12::		; paste X- and Y- Offsets of element
+For both commands:
+InspectorCheck
+IN_020_X/Y		; I(020) X-offset - OVERLAP - ELEMENT
+IN_021_X/Y		; I(021) Y-offset - OVERLAP - ELEMENT
+
+♣=============================== TRANSFER HEADER & FOOTER INFO =================================
+Determine WSTYHeight
+Select Text styles. Set the height by making in the column from Title thru User-12
+all entries visible. If the window is too big for the screen:
+make the maximum entries - starting with Title - visible
+
+Determine WSTYWidth
+Select Header/Footer. Make the left column (Score, Page etc.) as narrow as possible
+using the separators at both sides of the column.
+Adjust the right border so that the four big rectangles at the right are just wholly visible
+
+~p & F7::			; copy from: style header and footer texts
+~p & F8::			; paste style header and footer texts
+WSTYHeight			; size of Window Style
+WSTYWidth			; size of Window Style
+For both commands:
+InspectorCheck
+STY_01X/Y			; (STY_01) OK
+STY_14X/Y			; (STY_14) Left Odd Header topleft
+STY_15X/Y			; (STY_15) Left Even Header topleft
+STY_16X/Y			; (STY_16) Middle Odd Header topleft
+STY_17X/Y			; (STY_17 Middle Even Header topleft
+STY_18X/Y			; (STY_18) Right Odd Header topleft
+STY_19X/Y			; (STY_19) Right Even Header topleft
+STY_20X/Y			; (STY_20) Left Odd Footer topleft
+STY_21X/Y			; (STY_21) Left Even Footer topleft
+STY_22X/Y			; (STY_22) Middle Odd Footer topleft
+STY_23X/Y			; (STY_23) Middle Even Footer topleft
+STY_24X/Y			; (STY_24) Right Odd Footer topleft
+STY_25X/Y			; (STY_25) Right Even Footer topleft
+
+♣=============================== TRANSFER STYLE - ALL PAGE SPACE SETTINGS ===========================
+
+~p & F5::			; copy from: style page sp. settings and last system fill treshold
+~p & F6::			; copy to: style page sp. settings and last system fill treshold
+WSTYHeight			; size of Window Style - see ~p & F7/8
+WSTYWidth			; size of Window Style - see ~p & F7/8
+For both commands:
+InspectorCheck
+STY_04X/Y			; (STY_04) Music top margin rectangle
+STY_05X/Y			; (STY_05) Music bottom margin rectangle
+STY_06X/Y			; (STY_06) Staff distance rectangle
+STY_07X/Y			; (STY_07) Grand staff distance rectangle
+STY_08X/Y			; (STY_08) Min. system distance rectangle
+STY_09X/Y			; (STY_09) Max. system distance rectangle
+STY_10X/Y			; (STY_10) Vertical frame top margin rectangle
+STY_11X/Y			; (STY_11) Vertical frame bottom margin rectangle
+STY_12X/Y			; (STY_12) Last system fill threshold rectangle	
+
+♣================================== SUBROUTINE =========================================
+
+InspectorCheck
+ImageSearch, , , IM_01_X1, IM_01_Y1, IM_01_X2, IM_01_Y2, *40 IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+
+♣=======================================================================================

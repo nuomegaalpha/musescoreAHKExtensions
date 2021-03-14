@@ -1,0 +1,57 @@
+﻿Images used in F2-macro group:
+
+Statusbar_Rest_Duration_Measure.png
+Inspector_Inspector.png
+; ♣================================================================================================
+Legenda
+
+Modifier keys
+^	Control
+!	Alt
++	Shift
+#	Win
+
+Hotspots	IN_002_X/Y	means	IN_002_X	and	IN_002_Y
+Surfaces	CSA_X/Y1		CSA_X1			CSA_Y1		TLC	TopLeftCorner
+		CSA_X/Y2		CSA_X2			CSA_Y2		BRC	BottomRightCorner
+
+For all StatusBar images is the Search Area
+SB_X/Y1
+SB_X/Y2
+; ♣================================================================================================
+
+Shortcuts
+Apply current palette element	Control + Alt + P
+Palette Search			Ctrl + F9
+
+; ♣================================================================================================
+~[ & F2::
+ToolT_F2_X, 0, 1		; tooltip Palette Symbols. Shows that the macro group is active.
+
+~] & F2::			; ExitApp
+
+~[ & 2::			; info screen Apply Palette Symbols
+
+~z & a::			; apply palette symbols
+InputBox, PaletteSymbol, Apply Symbols from Palette, , , W_IB, H_IB, IB_X, IB_Y, , , Help = Questionmark		;  (*change*?) 
+; InputBox, PaletteSymbol, Apply Symbols from Palette, , , W_IB, H_IB, StartX, StartY-120, , , Help = Questionmark	;  (*change*?) InputBox positioned near the mouse
+; In the 'Mouse'positioning the InputBox is 120 px higher than the mouse. (The X of the box is the 'StartX' and 'StartX' is the X of the mouse.)
+W_IB				; Width of InputBox in Inspector
+H_IB				; Height of InputBox in Inspector
+IB_X/Y				; TLC of InputBox in Inspector
+Image Statusbar_Rest_Duration_Measure.png
+SB_X/Y1				; StatusBarSearchArea
+SB_X/Y2
+
+; ♣============================ SUPPLEMENT PSEUDO BARLINE ==============================
+
+Image IM_01_Inspector_Inspector.png
+IM_01_X1
+IM_01_Y1
+IM_01_X2
+IM_01_Y2
+IN_021_X/Y			; I(021) Y-offset - OVERLAP - ELEMENT
+(PixelSearch			; CanvasSearchArea)
+CSA_X/Y1			; CanvasSearchArea
+CSA_X/Y2
+ColorV1

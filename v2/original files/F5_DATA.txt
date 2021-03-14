@@ -1,0 +1,137 @@
+﻿This DATA file - derived from the F5-.ahk file - contains the DIY items.
+It is a supporting file meant to keep track.
+
+Some hotkeys don't need extra data. So in this document they get just one line.
+For the hotkeys in need of extra data: for each hotkey alle DIY items are listed.
+This concerns images + their search surface, hotspots, colornumbers, offsets and dimensions.
+The actual valus have to be entered in Coordinates.ahk
+
+You'll find more info in the Reference - F5 section of the pdf.
+
+Lines marked with (*change*?) often concern the position of tooltip and InputBoxes
+relative to the mouse position.
+♣==================================================================================================
+Images used in F5-macro group:
+
+IM_01_Inspector_Inspector.png
+IM_08_Inspector_Select_Beam.png
+
+Statusbar_Rest_Duration_Measure.png
+Statusbar_Note_Pitch.png
+Statusbar_Range_Selection.png
+
+; ♣================================================================================================
+Legenda
+
+Modifier keys
+^	Control
+!	Alt
++	Shift
+#	Win
+
+Hotspots	IN_002_X/Y	means	IN_002_X	and	IN_002_Y
+Surfaces	CSA_X/Y1		CSA_X1			CSA_Y1		TLC	TopLeftCorner
+		CSA_X/Y2		CSA_X2			CSA_Y2		BRC	BottomRightCorner
+
+♣==================================================================================================
+
+For all StatusBar images is the Search Area
+SB_X/Y1
+SB_X/Y2
+
+Frequently used commands:
+InspectorCheck
+Image IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+PixelSearch - CanvasSearchArea
+CSA_X/Y1
+CSA_X/Y2
+ColorV1
+in some cases also:
+ColorV2
+ColorV3
+ColorV4
+
+♣==================================================================================================
+~[ & F5::
+ToolT_F5_X, 0, 1	; tooltip (1) Alt.Time Sigs.
+
+~] & F5::		; ExitApp
+
+~[ & 5::		; Info Alternating Time Signatures,
+
+; ♣============================== CREATE ALTERNATING TIMESIGNATURES ===============================
+
+; NB: MuseScore shortcut 'Apply current palette element': Ctrl+Alt+P
+; NB: MuseScore shortcut Palette Search: Ctrl+F9
+
+; creating TimeSigs is taxing the computer. The macro works most fast and stable in an empty system
+; on the top staff while the other staves are invisible
+; may be you have to increase sleeptimes for slower systems in lines marked (*change*?)
+; in Alternating TimeSigs a colored note is created in the first measure as a point of reference
+; when the first TimeSig is created MuseScore 3.5 loses focus or it's not predictable which element is selected.
+; AHK finds the colored note and from there Alt+Left returns the cursor to the TimeSig and the loop can start
+; ALTERNATING BEAMING PATTERNS - example
+; this macro uses the Advanced AutoHotKey workspace to create the Time Signatures
+; orignally posted in https://musescore.org/en/node/303798
+; see the pdf info about 5/8 with alternating beaming patterns 2+3/8 resp. 3+2/8
+; https://musescore.org/en/handbook/time-signatures#create-time-signature
+; adding to the TimeSig Palette: https://musescore.org/en/handbook/palettes#custom-palettes
+; as for all palette symbols: the name of the Time Sig must of course be unique 
+; PM: rightclick the TimeSig to edit the name (here 2+3/8 resp. 3+2/8)
+; the macro will send the name to the Palette Search
+; NB1: the enriched workspace is one of the attachments belonging to the AHK Kit.
+; NB2: when we send special signs like the + sign we have to use the Send {Raw} command
+; for the details of this example see the lines containing 'Send {Raw}'
+
+; Select a Rest - duration measure (whole measure rest)
+
+~z & t::		; create alternating timesignatures (or only one)
+Image IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+Image Statusbar_Rest_Duration_Measure.png
+PixelSearch - CanvasSearchArea - ColorV1
+Position InputBox	; (*change*?) IBox (1)
+, , W_IB, H_IB, IB_X, IB_Y, , , e.g. 5/4  or 3/4,4/4,5/4		; (*change*?)
+Position InputBox	; (*change*?) IBox (2)
+InputBox, RepetitionCombiTS, How many times?, , , W_IB, H_IB, IB_X, IB_Y, , , Input number	; (*change*?)
+IN_012_X/T		; I(012) color picker rectangular (black) - OVERLAP all elements
+IN_013_X/Y		; I(013) Reset (012) color elements WITHOUT a Style button in Inspector
+RGB_X/Y			; Window Select Color HTML: #RGB rectangular
+
+; ♣======================= ALTERNATING VIRTUAL TIME SIGNATURES ====================================
+
+; ALTERNATING INVISIBLE TIME SIGNATURES using Measure Properties
+; start with choosing a Time Signature. All bars will have the same denominator.
+; the macro makes the numerator of the second measure of the pairs one higher than that of the first.
+; tip: when you repeat the macro starting on the same measure the length
+; of the second measure of the pair will again increase with one beat.
+; or for changes in bigger steps: remove the semicolon+space in line (2*) and or (3*) of the F5 ahk file.
+
+~CapsLock & t::
+Tooltip, Press CapsLock + T again to stop the loop, ToolT_F5_X, 40, 3	; (*change*?)
+In Window Measure Properties:
+WMPP_01X/Y 		; (WMPP_01) Duration Actual
+WMPP_03X/Y		; (WMPP_03) To next measure →
+WMPP_04X/Y 		; (WMPP_04) Apply
+WMPP_05X/Y		; (WMPP_05) OK
+
+; ♣================================== SET BEAM PROPERTIES =========================================
+
+; the macro uses the Advanced AutoHotKey workspace
+
+~z & b::					; Set Beam Property
+Inspectorcheck
+Image Statusbar_Range_Selection.png
+Image Statusbar_Note_Pitch.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+check tooltip pos!
+Tooltip, Set Beam Property.`nHelp = ?`nPress Z to exit the macro.`nPress CapsLock to suspend the macro., ToolT_F5_X, 40, 4	;(*change*?)
+Image IM_08_Inspector_Select_Beam.png
+IM_08_X/Y1
+IM_08_X/Y2
+IN_054_X/Y		; I(054) Select beam
+
+; ♣=======================================================================================

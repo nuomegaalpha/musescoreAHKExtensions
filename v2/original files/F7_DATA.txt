@@ -1,0 +1,114 @@
+﻿This DATA file - derived from the F7-.ahk file - contains the DIY items.
+It is a supporting file meant to keep track.
+
+Some hotkeys don't need extra data. So in this document they get just one line.
+For the hotkeys in need of extra data: for each hotkey alle DIY items are listed.
+This concerns images + their search surface, hotspots, colornumbers, offsets and dimensions.
+The actual valus have to be entered in Coordinates.ahk
+
+You'll find more info in the Reference - F7 section of the pdf.
+
+Lines marked with (*change*?) often concern the position of tooltip and InputBoxes
+relative to the mouse position.
+♣==================================================================================================
+Images used in F7-macro group:
+
+IM_01_Inspector_Inspector.png
+Statusbar_Note_Pitch.png
+Statusbar_Rest.png
+
+; ♣================================================================================================
+Legenda
+
+Modifier keys
+^	Control
+!	Alt
++	Shift
+#	Win
+
+Hotspots	IN_002_X/Y	means	IN_002_X	and	IN_002_Y
+Surfaces	CSA_X/Y1		CSA_X1			CSA_Y1		TLC	TopLeftCorner
+		CSA_X/Y2		CSA_X2			CSA_Y2		BRC	BottomRightCorner
+
+♣==================================================================================================
+
+For all StatusBar images is the Search Area
+SB_X/Y1
+SB_X/Y2
+
+Frequently used commands:
+InspectorCheck
+Image IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+
+PixelSearch - CanvasSearchArea
+CSA_X/Y1
+CSA_X/Y2
+ColorV1
+in some cases also:
+ColorV2
+ColorV3
+ColorV4
+; ♣================================================================================================
+
+Shortcuts
+Apply current palette element	Control + Alt + P
+Palette Search			Ctrl + F9
+
+InputBoxes near the mouse: customize position - marked with (*change*?)
+
+; ♣================================================================================================
+
+~[ & F7::		; tooltip Symbols Master Palette
+ToolT_F7_X, 0, 1		
+
+~] & F7::		; ExitApp
+
+~[ & 7::		; info screen Symbols Master Palette
+
+; ♣============================ ADD SYMBOLS FROM MASTER PALETTE ==========================
+
+; Important! The selected note or rest must remain visible thus NOT be covered by the Master Palette!
+; When you position the Master Palette in the bottom right corner this risk is minimal.
+; NB: for finetuning position with NumPad keys macrogroup F4 Positioning must be active.
+
+~z & s::		; add add symbols from master palette
+Inspector Check
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Rest.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+(*change*?) InputBox, SymbolMasPal, Enter Master Palette Symbols, , , W_IB, H_IB, IB_X, IB_Y, , , Help = ?	; (*change*?)
+(*change*?) InputBox, SymbolMasPal, Master Palette Symbols, , , W_IB, H_IB, IB_X, IB_Y, , , Enter Help or Symbol Shortcut
+WMPS_02X/Y		; (WMPS_02) Clear rectangle Window Master Palette Symbols
+WMPS_01X/Y		; (WMPS_01) Search rectangle Window Master Palette Symbols
+MP_X/Y1			; Search Area Master Palette Symbols
+MP_X/Y2
+ColorMasPal
+IN_021_X/Y		; I(021) Y-offset - OVERLAP - ELEMENT
+(*change*?) Tooltip, Position symbol with arrowkeys.`nPress Z when ready, StartX, StartY - 120, 2	; tooltip (2) (*change*?) StartY - 160 is height tooltip
+MasPalFieldWidth
+MasPalFieldHeight
+; ♣======================== MASTER PALETTE ======== ORNAMENTS ============================
+
+; Important! The selected note or rest must remain visible thus NOT be covered by the Master Palette!
+; When you position the Master Palette in the bottom right corner this risk is minimal.
+; NB: for finetuning position with NumPad keys macrogroup#4 Positioning must be active!
+; for a total of 34 Master Palette ornaments
+
+
+~z & o::  				; add Ornaments from Master Palette
+Inspector Check
+Image Statusbar_Note_Pitch.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+(*change*?) InputBox, SymbolMasPal, Enter Master Palette Ornaments, , , W_IB, H_IB, IB_X, IB_Y, , , Help = ?	 (*change*?)
+(*change*?) InputBox, SymbolMasPal, Enter Master Palette Ornaments, , , W_IB, H_IB, IB_X, IB_Y, , , Type shortcut
+WMPS_01X/Y		; (WMPS_01) Search rectangle Window Master Palette Symbols
+WMPS_02X/Y		; (WMPS_02) Clear rectangle Window Master Palette Symbols
+ColorMasPal
+MP_X/Y1			; Search Area Master Palette Symbols
+MP_X/Y2
+IN_021_X/Y		; I(021) Y-offset - OVERLAP - ELEMENT
+MasPalFieldWidth
+MasPalFieldHeight
+; ♣=======================================================================================

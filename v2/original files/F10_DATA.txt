@@ -1,0 +1,22 @@
+﻿Define unassigned MSc shortcut for 'Display Concert Pitch' (toggle): used here: Alt+Shift+C
+A tooltip makes the toolbar "Concert Pitch" superfluous. This can save Canvas Real Estate.
+The macro is simple: a tooltip reminds you of the score status.
+After startup you'll have to verify the score status once yourself.
+You could outcomment the #Include directive in F10_Change_Score_Status.ahk and add the value of
+ToolT_F10_X :=  at the top of the file.
+
+
+
+~[ & F10::		; timed tooltip "Score Status active!"
+ToolT_F10_X, 0, 1
+
+~] & F10::		; ExitApp
+
+
+~[ & 0::		; info Score Status
+
+~\ & c::		; Msg Change Score Status to Concert Pitch
+Send !+c		; Alt+Shift+C
+ToolT_F10_X, 0, 2
+
+~\ & t::		; Msg Change Score Status to Transposed Pitch

@@ -1,0 +1,281 @@
+﻿This DATA file - derived from the F9-.ahk file - contains the DIY items.
+It is a supporting file meant to keep track.
+
+Some hotkeys don't need extra data. So in this document they get just one line.
+For the hotkeys in need of extra data: for each hotkey alle DIY items are listed.
+This concerns images + their search surface, hotspots, colornumbers, offsets and dimensions.
+The actual valus have to be entered in Coordinates.ahk
+
+See also the Reference - F9 section of the pdf.
+Lines marked with (*change*?) often concern the position of tooltip and InputBoxes
+relative to the mouse position. Sometimes it concerns offsets.
+♣==================================================================================================
+
+Images used in F9-macro group:
+
+IM_01_Inspector_Inspector.png
+IM_17_Inspector_Text.png
+
+
+Statusbar_Note_Pitch.png
+Statusbar_tacca.png
+Statusbar_Nothing_Selected.png
+StatusBar_Rest.png
+Statusbar_Range_Selection.png
+
+
+Shortcuts
+Ctrl + Alt + P		; MSc user defined shortcut 'Apply current palette element' 
+Ctrl + F9		; MSc shortcut, Palette Search
+Send {F2}		; window special charcters WSC
+Ctrl + Shift + \	; MSc user defined shortcut 'Exchange voice 1-2'
+Shows in Preferences -> Shortcuts as 'Ctrl + |'
+
+; ♣================================================================================================
+Legenda
+
+Modifier keys
+^	Control
+!	Alt
++	Shift
+#	Win
+
+Hotspots	IN_002_X/Y	means	IN_002_X	and	IN_002_Y
+Surfaces	CSA_X/Y1		CSA_X1			CSA_Y1		TLC	TopLeftCorner
+		CSA_X/Y2		CSA_X2			CSA_Y2		BRC	BottomRightCorner
+
+♣==================================================================================================
+
+For all StatusBar images is the Search Area
+SB_X/Y1
+SB_X/Y2
+
+Frequently used commands:
+InspectorCheck
+Image IM_01_Inspector_Inspector.png
+IM_01_X/Y1
+IM_01_X/Y2
+
+PixelSearch - CanvasSearchArea
+CSA_X/Y1
+CSA_X/Y2
+ColorV1
+in some cases also:
+ColorV2
+ColorV3
+ColorV4
+♣==================================================================================================
+
+~[ & F9::		; tooltip (1) Specials
+ToolT_F9_X, 0, 1		
+
+~] & F9::		; ExitApp
+
+~[ & 9::		; info Specials
+
+; ♣===================== STACCATO FILTERING ==== KEEP/DELETE STAACATO =============================
+
+; Recognition of staccato: ALL forms of staccato are recognized via Statusbar_tacca.png
+; normal staccato, Staccatissimo, Staccatissimo Wedge, Staccatissimo Stroke, Accent-Staccato,
+; Marcato-Staccato, soft accent staccato, soft accent tenuto staccato, tenuto staccato
+
+~z & ,::		; break staccato loop
+
+~z & .::		; Keep/Delete staccato notes (and delete/keep non staccato)
+InspectorCheck
+Tooltip, Keep/Delete Staccato Notes`nPress K or D, ToolT_F5_X, 0, 2	; (*change*?) position same as Tooltip F5.
+Image Statusbar_Note_Pitch.png
+Image Statusbar_tacca.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+
+; ♣======================================== SET PEDAL LINES =======================================
+
+~z & l::		; set pedal lines consecutively
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Big tooltip near tooltip F9 Specials:
+Tooltip, Pedal lines: .. much text...To exit the loop: press Z and then X
+ToolT_F9_X - 53, 22, 4			; 53 to the left of Tooltip, 22 = height (*change*?)
+Tooltip, Select range and Press Z.`nOr press Z and TAB., ElementX, ElementY - 100, 5		; (*change*?)
+Send ^{F9}		; MSc shortcut, Palette Search (Ctrl + F9)
+
+; ♣================================ MEMORY POINTS on SAME SCREEN ==================================
+
+~m & F1::		; set memorypoint spot 1
+~m & 1::		; retrieve memorypoint1 - GOTO/select spot 1
+Idem
+M + F2/F3/F4/F5/F6/F7/F8/F9/F10/F11/F12
+and corresponding
+M + 2/3/4/5/6/7/8/9/0/-/=
+
+; ♣===================================== COLOR SEARCH SPECIALS ====================================
+
+; IMPORTANT: If you want to use the Masking (Text c.q. Measures) hotkeys your Canvas Color
+; must NOT be pure white, NOT 0xffffff  (NOT #ffffff). Change your Canvas color slightly.
+
+~!w::			; selection pure white needs extra steps
+Image Statusbar_Nothing_Selected.png
+InspectorCheck
+ColorCanvas
+PixelSearch, , , EmptyX - 10, EmptyY - 10, EmptyX, EmptyY, ColorCanvas, , Fast RGB  
+PixelSearch, , , EmptyX - 10, EmptyY + 10, EmptyX, EmptyY + 15, ColorCanvas, , Fast RGB
+ColorCanvas
+
+~!b::			; to color selected invisible elements
+ColorSelectedInvisible
+
+~!n::			; to color unselected invisible elements and little grey square in handles without click
+ColorHandle
+PixelSearch, , , CanvasSearchArea, ColorHandle
+
+~!m::			; to color voice 4 (= also of handles) - but without click
+PixelSearch, , Y, CanvasSearchArea, ColorV4
+
+; ♣=====================================  MASK MEASURES ===========================================
+
+; IMPORTANT: If you want to use the Masking (Text c.q. Measures) hotkeys your Canvas Color
+; must NOT be pure white, NOT 0xffffff  (NOT #ffffff). Change your Canvas color slightly.
+
+~z & m::		; mask measures - fully or partially
+InspectorCheck
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Image IM_18_Inspector_Triangle_Closed.png
+IM_18_X/Y1
+IM_18_X/Y2
+TriAngleOffset_X
+TriAngleOffset_Y
+Image Statusbar_Note_Pitch.png
+Image IM_23_Line_triangle_section_open.png
+IM_23_X/Y1
+IM_23_X/Y2
+IN_012_X/Y		; I(012) color picker rectangular (black) - OVERLAP all elements
+IN_023_X/Y		; I(023) Stacking order (Z) - OVERLAP
+IN_032_X/Y		; I(032) CHORD, tickbox stemless
+IN_046_X/Y		; I(046) Note play tick box
+IN_101_X/Y		; I(101) Line Thickness rectangle
+RGB_X/Y			; Window Select Color HTML: #RGB rectangular
+
+
+; ♣=========================================== TEMPO CHANGES ======================================
+
+~z & k::		; tempo changes
+InspectorCheck
+This InputBox occurs twice:
+InputBox, Tempo, Tempo Changes, Enter start tempo and tempo change.`nSelect start note of the tempo track. Press Z., , W_IB, H_IB + 40, IB_X, IB_Y, , , Help = ?	;  (*change*?) NB: H_IB + 40 ?
+Send ^{F9}		; Palette Search (*PS)
+Send ^!p		; MSc user defined shortcut 'Apply current palette element'
+Image StatusBar_Rest.png
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Range_Selection.png
+IN_002_X/Y		; I(002) rectangular Set Color = Reset Color - ELEMENT GROUP
+IN_007_X/Y		; I(007) Select Notes
+IN_012_X/Y		; I(012) color picker rectangular (black) - OVERLAP all elements
+IN_030_X/Y		; I(030) Chord tickbox Small
+IN_046_X/Y		; I(046) Note play tick box - play off
+IN_104_X/Y		; I(104) tempo text - tickbox Follow text
+IN_105_X/Y		; I(105) tempo amount - Numeric input rectangle
+RGB_X/Y			; Window Select Color HTML: #RGB rectangular
+PixelSearch - CanvasSearchArea - ColorV1
+
+; ♣=========================================== CUE ================================================
+
+; the macro operates best in Continuous View
+; it works on a cue passage which you have already copied to its destination
+; usually this passage will be created via the Selection Filter (Z + F) in macrogroup F1
+; and first and last element are colored as Colored Range pair #4
+; the passage must be in voice 1
+; exchange voice 1 and 2 - user defined shortcut Ctrl + Shift + \ (*change*?)
+; if there are dynamics in the cue (unusual) their textsize has to be decreased separately
+; range select -> mousepos. on dynamic -> M + T
+
+~z & q::		; create cue
+InspectorCheck
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Rest.png
+Image Statusbar_Range_Selection.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Send ^+{\}		; exchange voice 1 and 2 - user defined shortcut Ctrl + Shift + \ (*change*?)
+IN_002_X/Y		; I(002) rectangle Set Color = Reset Color
+IN_007_X/Y		; I(007) Select Notes - ELEMENT GROUP
+IN_012_X/Y		; I(012) color picker rectangular (black) - OVERLAP all elements
+IN_013_X/Y		; I(013) Reset (012) color elements WITHOUT a Style button in Inspector
+IN_021_X/Y		; I(021) Y-offset - OVERLAP - ELEMENT
+IN_030_X/Y		; I(030) Chord tickbox Small
+IN_046_X/Y		; I(046) Note play tick box
+IN_070_X/Y		; I(070) Rest tickbox small
+WS_03_X/Y		; (WS_03) In selection Window Select
+WS_04_X/Y		; (WS_04) Same voice Window Select
+WSPPHeight		; Window Staff/Part Properties
+-------------------------------------------
+If you prefer the short instrument name: activate WSPP_05X/Y and outcommentt WSPP_04X/Y
+WSPP_04X/Y		; (WSPP_04) Lower right corner of Long instrument name
+; WSPP_05X/Y		; (WSPP_05) Lower right corner of Short instrument name
+-------------------------------------------
+WSPP_08X/Y		; (WSPP_08) OK
+Tooltip, Copy instrument name`nTake care that the cue passage`nin the destination staff is visible.`nSelect start of cue.`nPress Z when ready., MediumPurpleX, MediumPurpleY - 100, 5	; - 100 is 100 higher (*change*?)
+RGB_X/Y			; Window Select Color HTML: #RGB rectangular
+
+; ♣====================================== COPY PARTNAME ===========================================
+
+~z & j::		; copy instrument name (for cues)
+PixelSearch - CanvasSearchArea - ColorV1
+WSPPHeight		; Window Staff/Part Properties
+WSPP_04X/Y		; (WSPP_04) Lower right corner of Long instrument name
+WSPP_08X/Y		; (WSPP_08) OK
+Tooltip, Copy instrument name`nSelect start of cue.`nPress Z., ElementX, ElementY - 100, 6	; (*change*?)
+Image Statusbar_Note_Pitch.png
+
+; ♣==================================== ACCIDENTALS IN ORNAMENTS ==================================
+
+; note selected and its ornament attached
+; the height of the Window Special Characters in Z + G is minimzed
+; to determine the width of the window see documentation (triangles next to unicode characters JUST disappear)
+; topleft special character is a (big) flat. the small accidentals are in fields 4,5,6,7 and 8
+; determine the width of the Special Character field.
+; the numeric values of the accidentals presuppose the default min. distance of the ornament (0.50)
+
+~z & g::		; graphic accidentals in ornaments
+InspectorCheck
+Image Statusbar_Note_Pitch.png
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+; InputBox, AccidentalOrnament, Add Graphic Accidentals to Ornaments, , , W_IB, H_IB, IB_X, IB_Y, , , Enter above/below accidental    ? for Help
+InputBox, AccidentalOrnament, Add Graphic Accidentals to Ornaments, , , W_IB, H_IB, ElementX+100, ElementY-120, , , Enter above/below accidental    ? for Help	; (*change*?)
+Send {F2}		; MSc shortcutwindow special charcters WSC
+WSC_Width		; Window Special Characters
+WSC_Height
+WSC_01X/Y		; (WSC_01) Tab Common Symbols
+WSC_02X/Y			; (WSC_02) Flat first field - fieldcentre X of centre left column
+WSC_FieldWidth
+WSC_FieldHeight
+IN_017_X/Y		; I(017) Minimum distance input field OVERLAP - ELEMENT
+IN_020_X/Y		; I(020) X-offset - OVERLAP - ELEMENT
+IN_021_X/Y		; I(021) Y-offset - OVERLAP - ELEMENT
+Image IM_24_Ornament_triangle_section_open.png
+IM_24_X/Y1
+IM_24_X/Y2
+
+; ♣====================================== SPECIAL CHARACTERS ======================================
+
+~z & h::		; add special characters from common symbols
+InspectorCheck
+Image IM_17_Inspector_Text.png
+IM_17_X/Y1
+IM_17_X/Y2
+; InputBox, SpecChar, Add Special Characters, , , W_IB, H_IB, IB_X, IB_Y, , , Enter shortcut    ? for Help
+InputBox, SpecChar, Add Special Characters, , , W_IB, H_IB, StartX+100, StartY-120, , , Enter shortcut    ? for Help	; (*change*?)
+Image Statusbar_Note_Pitch.png
+Image Statusbar_Rest.png        
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+; InputBox, SpecChar, Add Special Characters, , , W_IB, H_IB, IB_X, IB_Y, , , Enter shortcut    ? for Help
+InputBox, SpecChar, Add Special Characters, , , W_IB, H_IB, ElementX+100, ElementY-120, , , Enter shortcut    ? for Help	; (*change*?)
+; InputBox, SpecChar, Add Special Characters, , , W_IB, H_IB, IB_X, IB_Y, , , Enter shortcut    ? for Help
+InputBox, SpecChar, Add Special Characters, , , W_IB, H_IB, StartX+100, StartY-120, , , Enter shortcut    ? for Help	; (*change*?)
+WSC_Width2		; window special charcters WSC
+WSC_Height2
+WSC_01X/Y		; (WSC_01) Tab Common Symbols
+WSC_02X/Y
+WSC_FieldWidth
+WSC_FieldHeight
+IN_073_X/Y		; I(073) Text Font size - TEXT
+Tooltip, Set fontsize with arrow up/down.`nPress Z when ready., ElementX+100, ElementY-100, 7	; (*change*?)
+PixelSearch - CanvasSearchArea - ColorV1/2/3/4
+Tooltip, Position the charachter with the arrow keys.`nPress Z when ready., CharacterX+100, CharacterY-100, 8	; (*change*?)
