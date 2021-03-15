@@ -4,7 +4,7 @@ SendMode Input  		; Recommended for new scripts due to its superior speed and re
 SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 #SingleInstance force		; Replaces script (Reloads).
 #Persistent			; to make it run indefinitely
-Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
+; Menu, Tray, Icon, %A_ScriptDir%\lib\PaletteIconv3.ico
 
 
 pruneStack(posX, posY) {
