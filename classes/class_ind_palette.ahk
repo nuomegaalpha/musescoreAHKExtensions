@@ -1,18 +1,18 @@
 #NoEnv  			; Recommended for performance and compatibility with future AutoHotkey releases.
-#Warn  				; Enable warnings to assist with detecting common errors.
+; #Warn  				; Enable warnings to assist with detecting common errors.
 SendMode Input  		; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 #SingleInstance force		; Replaces script (Reloads).
 #Persistent			; to make it run indefinitely
 SetBatchLines, -1
 
-class palette {
-    add(paletteCode, itemName, toolTipTime, add_delay = 50) {
+class palette extends meta{
+    add(paletteCode, itemName, toolTipTime, delay) {
         ToolTip, %itemName%
         Send, ^{F9}
-        Sleep, %add_delay%
+        Sleep, %delay%
         Send, ^a
-        Sleep, %add_delay%
+        Sleep, %delay%
         Send, %paletteCode%
         Send, ^!p
         SetTimer, RemoveToolTip, %toolTipTime%
@@ -29,3 +29,8 @@ class palette {
         return paletteDefinition
     }
 }
+
+
+; RemoveToolTip:
+; ToolTip,
+; return
