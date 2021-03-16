@@ -7,34 +7,28 @@ SetWorkingDir %A_ScriptDir% 	; Ensures a consistent starting directory.
 ; #Include, %A_ScriptDir%\lib_old\musescore function list.ahk
 ; #Include, %A_ScriptDir%\lib_old\infoShortcuts.ahk
 
-; loop {
-;     MouseGetPos, x1, y1
-;     PixelGetColor, col, x1, y1
-;     ToolTip, %col%, x1 + 50, y1 + 50
-;     Sleep, 50
-; }
-
-width := 300
-height := 30
+width := 500
+height := 60
 ; xPos := A_ScreenWidth / 50
 xPos := 0
 ; yPos := A_ScreenHeight - (A_ScreenHeight / 9)
-yPos := 1980
-font := "Segoe UI"
-fontSize := 11
-textColor := "e6e6e6"
-backgroundColor := "2C2C2C"
+yPos := 1890
+font := "Source Code Pro"
+fontSize := 10
+colorWhite := "e6e6e6"
+colorBlack := "2C2C2C"
+colorBlue := "2a9eeb"
 
 Gui, New, +AlwaysOnTop +Border -Caption -SysMenu +ToolWindow
 Gui, Show, Center W%width% H%height% X%xPos% Y%yPos%
-Gui, Color, %backgroundColor%, %backgroundColor% 
-Gui, Font, c%textColor% s%fontSize% w400, %font% ;this W is weight, stupidly
+Gui, Color, %colorBlack%, %colorBlack% 
+Gui, Font, c%colorWhite% s%fontSize% w400, %font% ;this W is weight, stupidly
 
 ; draws a > in front of text box
 Gui, Add, Text, Y0 X5, >
 
-textHeight := height - 5
-Gui, Font, c3ecce6 s%fontSize% w700, %font% ;this W is weight, stupidly
+textHeight := 15
+Gui, Font, c%colorBlue% s%fontSize% w400, %font% ;this W is weight, stupidly
 Gui, Add, Edit, vEditData gOnSubmit W%width% H%textHeight% X15 Y0 -E0x200 +Lowercase -WantReturn ; this W is width; -E0x200 gets rid of border 
 
 #WinActivateForce
@@ -55,12 +49,16 @@ len = StrLen(EditData)
 if (len > 0) {
     KeyWait, Enter, D
     Gui, Submit, NoHide
-    insertPaletteItem(EditData, 1200, 50)
+    insertPaletteItem(EditData, 1200, 200)
     GuiControl,, EditData
     WinActivate, ahk_exe MuseScore3.exe
     return
 }
 #If
+
+parseInput() {
+    return
+}
 
 insertPaletteItem(input, toolTipTime, IPE_delay) {
     WinActivate, ahk_exe MuseScore3.exe
