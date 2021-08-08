@@ -205,19 +205,71 @@ loadStyle(styleFilePath) {
 }
 
 generateAllParts() {
-    Send, !f
-    Send, {down 12}
-    Send, {Enter}
-    Sleep, 100
+    Send, ^+!p
+    Sleep, 500
     Send, {Tab}
     Send, {Enter}
-    Sleep, 100
+    Sleep, 500
     Send, {Tab 7}
     Sleep, 50
     Send, {Enter}
     return
 }
 
+rhythmBlocks(pattern){
+    if (pattern = "ee") {
+        Send, 44
+    }
+    else if (pattern = "ess") {
+        Send, 433
+    }
+    else if (pattern = "ree") {
+        Send, 0404
+    }
+    else if (pattern = "ress") {
+        Send, 04033
+    }
+    else if (pattern = "ssss") {
+        Send, 3333
+    }
+    else if (pattern = "sse") {
+        Send, 334
+    }
+    else if (pattern = "ses") {
+        Send, 343
+    }
+    else if (pattern = "sde") {
+        Send, 3.4.
+    }
+    else if (pattern = "des") {
+        Send, .4.3
+    }
+    else if (pattern = "3eee") {
+        Send, ^3
+        Sleep, 50
+        Send, 444
+    }
+    else if (pattern = "3eree") {
+        Send, ^3
+        Sleep, 50
+        Send, 40404
+    }
+    else if (pattern = "3qe") {
+        Send, ^3
+        Sleep, 50
+        Send, 54
+    }
+    else if (pattern = "3reee") {
+        Send, ^3
+        Sleep, 50
+        Send, 04044
+    }
+    else if (pattern = "3dese") {
+        Send, ^3
+        Sleep, 50
+        Send, .4.34
+    }
+}
 ; newPaletteItem() {
 ;     InputBox, newPaletteCall, Enter New Palette Calling Code, , , 264, 100, , , , ,eg. qt
 ;     IniRead, doesItemAlreadyExist, C:\Users\noahm\Desktop\AutoHotKey Scripts\musescore\lib\palettelist.ini, section1, %newPaletteCall%
