@@ -154,6 +154,14 @@ Else If PaletteSymbol Contains sty
     }
 }
 
+Else If PaletteSymbol Contains ee,ess,ree,ress,ssss,sse,ses,sde,des,3eee,3eree,3qe,3reee,3dese
+,note-t,note-s,note-e,note-q,note-h,note-w,note-dt,note-ds,note-de,note-dq,note-dh,note-dw
+,rest-t,rest-s,rest-e,rest-q,rest-h,rest-w,5sssss,6ssssss,7sssssss,e3sss
+,3ssse,re3sss,3sssre
+{
+    rhythmBlocks(PaletteSymbol)
+}
+
 Else If PaletteSymbol in ?,?a,?ag,?b,?bl,?bp,?br,?bs,?c,?d,?f,?fd,?fm,?g,?gn,?h,?i,?k,?ks,?l,?m
 ,?n,?nh,?o,?p,?q,?r,?rj,?t,?tr,?ts,?u,?v,?w,?x,?z,?[
 

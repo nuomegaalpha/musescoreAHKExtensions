@@ -217,7 +217,69 @@ generateAllParts() {
 }
 
 rhythmBlocks(pattern){
-    if (pattern = "ee") {
+    Send, !n
+    Send, {Esc}
+    Send, ^+i
+    ; -------------------------single notes-------------------
+    if (pattern = "note-t") {
+        Send, 2
+    }
+    else if (pattern = "note-s") {
+        Send, 3
+    }
+    else if (pattern = "note-e") {
+        Send, 4
+    }
+    else if (pattern = "note-q") {
+        Send, 5
+    }
+    else if (pattern = "note-h") {
+        Send, 6
+    }
+    else if (pattern = "note-w") {
+        Send, 7
+    }
+
+    ; -----------------------dotted notes-------------------
+    else if (pattern = "note-dt") {
+        Send, .2.
+    }
+    else if (pattern = "note-ds") {
+        Send, .3.
+    }
+    else if (pattern = "note-de") {
+        Send, .4.
+    }
+    else if (pattern = "note-dq") {
+        Send, .5.
+    }
+    else if (pattern = "note-dh") {
+        Send, .6.
+    }
+    else if (pattern = "note-dw") {
+        Send, .7.
+    }
+    ;-------------------- rests---------------------
+    else if (pattern = "rest-t") {
+        Send, 020
+    }
+    else if (pattern = "rest-s") {
+        Send, 030
+    }
+    else if (pattern = "rest-e") {
+        Send, 040
+    }
+    else if (pattern = "rest-q") {
+        Send, 050
+    }
+    else if (pattern = "rest-h") {
+        Send, 060
+    }
+    else if (pattern = "rest-w") {
+        Send, 070
+    }
+    ; ------------------------groups-------------------------
+    else if (pattern = "ee") {
         Send, 44
     }
     else if (pattern = "ess") {
@@ -245,30 +307,129 @@ rhythmBlocks(pattern){
         Send, .4.3
     }
     else if (pattern = "3eee") {
+        Send, {Esc}
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
         Send, ^3
         Sleep, 50
         Send, 444
     }
     else if (pattern = "3eree") {
+        Send, {Esc}
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
         Send, ^3
         Sleep, 50
         Send, 40404
     }
     else if (pattern = "3qe") {
+        Send, {Esc}
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
         Send, ^3
         Sleep, 50
         Send, 54
     }
     else if (pattern = "3reee") {
+        Send, {Esc}
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
         Send, ^3
         Sleep, 50
         Send, 04044
     }
     else if (pattern = "3dese") {
+        Send, {Esc}
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
         Send, ^3
         Sleep, 50
         Send, .4.34
     }
+    else if (pattern = "5sssss") {
+        Send, {Esc}
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
+        Send, ^5
+        Sleep, 50
+        Send, 33333
+    }
+    else if (pattern = "6ssssss") {
+        Send, {Esc}
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
+        Send, ^6
+        Sleep, 50
+        Send, 333333
+    }
+    else if (pattern = "7sssssss") {
+        Send, {Esc}
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
+        Send, ^7
+        Sleep, 50
+        Send, 3333333
+    }
+    else if (pattern = "e3sss") {
+        Send, {Esc}
+        Sleep, 100
+        Send, 4
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
+        Send, 4
+        Sleep, 50
+        Send, ^3
+        Sleep, 50
+        Send, 333
+    }
+    else if (pattern = "3ssse") {
+        Send, {Esc}
+        Sleep, 100
+        Send, 4
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
+        Send, ^3
+        Sleep, 50
+        Send, 333
+        Send, 4
+    }
+    else if (pattern = "re3sss") {
+        Send, {Esc}
+        Sleep, 100
+        Send, 4
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
+        Send, 040
+        Sleep, 50
+        Send, ^3
+        Sleep, 50
+        Send, 333
+    }
+    else if (pattern = "3sssre") {
+        Send, {Esc}
+        Sleep, 100
+        Send, 4
+        Sleep, 100
+        Send, ^+i
+        Sleep, 100
+        Send, ^3
+        Sleep, 50
+        Send, 333
+        Send, 040
+    }
+    Send, {Right}
+    return
 }
 ; newPaletteItem() {
 ;     InputBox, newPaletteCall, Enter New Palette Calling Code, , , 264, 100, , , , ,eg. qt
